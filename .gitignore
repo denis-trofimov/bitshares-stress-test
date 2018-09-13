@@ -102,3 +102,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Ignore IDE files.
+.idea
+.eric*
+*.e4p
