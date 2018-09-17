@@ -30,17 +30,30 @@ class Scenario(object):
         for stage in self.scenario.get("stages", []):
             kwargs: dict = stage.get("params", {})
             result: str = getattr(self, stage.get("method", ''), lambda:None)(**kwargs)
-            print(result)
+            print(json.dumps(result))
 
-    def get_block(self, block_num: int) -> str:
+    def get_global_properties(self):
+        """ Retrieve the current global_property_object."""
+        return self.bts.info()
+
+    def get_block(self, block_num: int):
         """ Retrieve a full, signed block."""
-        block = Block(block_num, blockchain_instance=self.bts, lazy=False)
-        return json.dumps(block)
+        return Block(block_num, blockchain_instance=self.bts, lazy=False)
 
-    def get_chain_properties(self) -> str:
+    def get_chain_properties(self):
         """ Retrieve the chain_property_object associated with the chain."""
         self.chain = Blockchain(mode="head")
-        return json.dumps(self.chain.get_chain_properties())
+        return self.chain.get_chain_properties()
+
+    def get_dynamic_global_properties(self):
+        """ This call returns the *dynamic global properties*
+        """
+        return self.chain.info()
+
+    def get_config(self) -> str:
+        """ Retrieve compile-time constants."""
+
+
 
 
 if __name__ == "__main__":
