@@ -1,30 +1,43 @@
-# encoding: utf-8
-# Konstantin Cyber, [13.09.18 17:29]
-# так как для сценария будут ридонли операции необходимо продумать что-то осмысленное, например, типовой сценарий для блокчейн-эксплоера
-# 1) запрос блока
-# 2) запрос транзакции в блоке
-# 3) запрос параметров БС
-# 4) запрос глобальных параметров БЧ
-#
-# Konstantin Cyber, [13.09.18 17:30]
-# вот тут перваая секция
-# http://docs.bitshares.org/api/database.html
-#
-# Konstantin Cyber, [13.09.18 17:30]
-# get_block, get_transaction, get_chain_properties, get_global_properties, get_config, get_chain_id, get_dynamic_global_properties, get_accounts
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+""" Scenario test, stress test tool for BitShares based on JSON and pybitshares.
+    get_block, get_transaction, get_chain_properties, get_global_properties, get_config, get_chain_id, get_dynamic_global_properties, get_accounts
+"""
 
-import os
-import sys
-import bitshares
-import unittest
+
 import json
-from bitshares import BitShares
-
 import logging
-log = logging.getLogger()
+from bitshares import BitShares
+from bitshares.block import Block, BlockHeader
 
-network = bitshares.BitShares("ws://newton.array.io:8090", nobroadcast=True, debug=True)
-# Obtain the content of one block
-from bitshares.block import Block
-print(Block(1))
-Block()
+
+class Scenario(object):
+    """ Scenario test, stress test tool for BitShares based on JSON and pybitshares.
+    """
+    def __init__(self, script_name = "scenario.json"):
+        # try:
+        with open(script_name, 'rt') as file:
+            self.scenario = json.load(file)
+        # except FileNotFoundError, Error
+        if not self.scenario or not self.scenario.get("stages", 0):
+            print("Empty stages!")
+
+    def run(self):
+        # Connect bitshares
+        self.bts = BitShares("ws://newton.array.io:8090", nobroadcast=True, debug=True)
+
+        for stage in self.scenario.get("stages", []):
+            kwargs: dict = stage.get("params", {})
+            result: str = getattr(self, stage.get("method", ''), lambda:None)(**kwargs)
+            print(result)
+
+
+    def get_block(self, block_num: int) -> str:
+        """ Obtain the content of one block."""
+        block = Block(block_num, blockchain_instance=self.bts, lazy=False)
+        return json.dumps(block)
+
+
+if __name__ == "__main__":
+    log = logging.getLogger()
+    Scenario().run()

@@ -1,5 +1,5 @@
 { "stages":[
-    {"method": "get_block", "params": [1]},
+    {"method": "get_block", "params": {"block_num": 1}},
     {"method": "get_transaction"},
     {"method": "get_chain_properties"},
     {"method": "get_global_properties"},
