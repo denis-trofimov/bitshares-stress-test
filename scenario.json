@@ -1,0 +1,11 @@
+{ "stages":[
+    {"method": "get_block", "params": [1]},
+    {"method": "get_transaction"},
+    {"method": "get_chain_properties"},
+    {"method": "get_global_properties"},
+    {"method": "get_config"},
+    {"method": "get_chain_id"},
+    {"method": "get_dynamic_global_properties"},
+    {"method": "get_accounts"}
+    ]
+}
