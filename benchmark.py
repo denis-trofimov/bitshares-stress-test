@@ -9,12 +9,13 @@ import json
 import logging
 from bitshares import BitShares
 from bitshares.block import Block, BlockHeader
+from bitshares.blockchain import Blockchain
 
 
 class Scenario(object):
     """ Scenario test, stress test tool for BitShares based on JSON and pybitshares.
     """
-    def __init__(self, script_name = "scenario.json"):
+    def __init__(self, script_name: str ="scenario.json"):
         # try:
         with open(script_name, 'rt') as file:
             self.scenario = json.load(file)
@@ -31,11 +32,15 @@ class Scenario(object):
             result: str = getattr(self, stage.get("method", ''), lambda:None)(**kwargs)
             print(result)
 
-
     def get_block(self, block_num: int) -> str:
-        """ Obtain the content of one block."""
+        """ Retrieve a full, signed block."""
         block = Block(block_num, blockchain_instance=self.bts, lazy=False)
         return json.dumps(block)
+
+    def get_chain_properties(self) -> str:
+        """ Retrieve the chain_property_object associated with the chain."""
+        self.chain = Blockchain(mode="head")
+        return json.dumps(self.chain.get_chain_properties())
 
 
 if __name__ == "__main__":
