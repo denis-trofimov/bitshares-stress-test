@@ -17,20 +17,14 @@ import os
 import sys
 import bitshares
 import unittest
-
+import json
 from bitshares import BitShares
 
 import logging
 log = logging.getLogger()
 
-b1 = BitShares(
-    "wss://node.testnet.bitshares.eu",
-    nobroadcast=True,
-)
-
-b2 = BitShares(
-    "wss://node.bitshares.eu",
-    nobroadcast=True,
-)
-
-unittest.TestCase.assertNotEqual(b1.rpc.url, b2.rpc.url)
+network = bitshares.BitShares("ws://newton.array.io:8090", nobroadcast=True, debug=True)
+# Obtain the content of one block
+from bitshares.block import Block
+print(Block(1))
+Block()
