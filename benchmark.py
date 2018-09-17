@@ -50,8 +50,12 @@ class Scenario(object):
         """
         return self.chain.info()
 
-    def get_config(self) -> str:
+    def get_config(self):
         """ Retrieve compile-time constants."""
+
+    def get_chain_id(self):
+        """ Get the chain ID."""
+        return {"chain_id": self.chain.get_chain_properties()["chain_id"]}
 
 
 
