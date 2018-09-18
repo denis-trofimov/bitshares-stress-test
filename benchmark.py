@@ -68,6 +68,7 @@ class Scenario(object):
 
     def get_config(self):
         """ Retrieve compile-time constants."""
+        return self.chain.config()
 
     def get_accounts(self, start='', stop='', steps=1e3, **kwargs):
         """ Yields account names between start and stop.
