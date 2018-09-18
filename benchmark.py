@@ -16,7 +16,8 @@ from bitshares.blockchain import Blockchain
 
 
 class Scenario(object):
-    """ Scenario test, stress test tool for BitShares based on JSON and pybitshares.
+    """ Scenario test, stress test tool for BitShares based on JSON and
+        pybitshares.
     """
     def __init__(self, script_name: str ="scenario.json"):
         # try:
@@ -28,7 +29,9 @@ class Scenario(object):
 
     def run(self):
         # Connect bitshares
-        self.bts = BitShares("ws://newton.array.io:8090", nobroadcast=True, debug=True)
+        self.bts = BitShares(
+            "ws://newton.array.io:8090", nobroadcast=True, debug=True)
+#        print("Node to connect to {}".format(self.bts.node))
 
         for stage in self.scenario.get("stages", []):
             kwargs: dict = stage.get("params", {})
@@ -53,7 +56,9 @@ class Scenario(object):
 
     def get_chain_properties(self):
         """ Retrieve the chain_property_object associated with the chain."""
-        self.chain = Blockchain(mode="head")
+        self.chain = Blockchain(mode="head", blockchain_instance=self.bts)
+        print("Identify the network parameters: {0}".format(
+            self.chain.get_network()))
         return self.chain.get_chain_properties()
 
     def get_dynamic_global_properties(self):
