@@ -5,7 +5,10 @@
 """
 
 
-import json
+#import json
+# Since simplejson is backwards compatible, you should feel free to import
+# it as `json`
+import simplejson as json
 import logging
 from bitshares import BitShares
 from bitshares.block import Block, BlockHeader
@@ -30,7 +33,15 @@ class Scenario(object):
         for stage in self.scenario.get("stages", []):
             kwargs: dict = stage.get("params", {})
             result: str = getattr(self, stage.get("method", ''), lambda:None)(**kwargs)
-            print(json.dumps(result))
+            # Copy method from call to responce.
+            if result:
+                if isinstance(result, dict):
+                    result["method"] = stage.get("method", '')
+                    print(json.dumps(result))
+                else:
+                    print(result)
+            else:
+                print("The method `{0}` is not implemented!".format(stage.get("method", '')))
 
     def get_global_properties(self):
         """ Retrieve the current global_property_object."""
@@ -52,6 +63,16 @@ class Scenario(object):
 
     def get_config(self):
         """ Retrieve compile-time constants."""
+
+    def get_accounts(self, start='', stop='', steps=1e3, **kwargs):
+        """ Yields account names between start and stop.
+
+            :param str start: Start at this account name
+            :param str stop: Stop at this account name
+            :param int steps: Obtain ``steps`` ret with a single call from RPC
+        """
+        return json.dumps((account for account in self.chain.get_all_accounts(
+            start, stop,  steps)), iterable_as_array=True)
 
     def get_chain_id(self):
         """ Get the chain ID."""
