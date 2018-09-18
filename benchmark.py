@@ -31,7 +31,7 @@ class Scenario(object):
         # Connect bitshares
         self.bts = BitShares(
             "ws://newton.array.io:8090", nobroadcast=True, debug=True)
-#        print("Node to connect to {}".format(self.bts.node))
+        print('Connected to node "{0}".'.format(self.bts.rpc.url))
 
         for stage in self.scenario.get("stages", []):
             kwargs: dict = stage.get("params", {})
