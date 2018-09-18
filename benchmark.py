@@ -83,7 +83,9 @@ class Scenario(object):
         """ Get the chain ID."""
         return {"chain_id": self.chain.get_chain_properties()["chain_id"]}
 
-
+#    def get_transaction(self, block_num: int, trx_in_block: int):
+#        """processed_transaction graphene::app::database_api::get_transaction(uint32_t block_num, uint32_t trx_in_block) const
+#        used to fetch an individual transaction."""
 
 
 if __name__ == "__main__":
