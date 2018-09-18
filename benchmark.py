@@ -13,6 +13,7 @@ import logging
 from bitshares import BitShares
 from bitshares.block import Block, BlockHeader
 from bitshares.blockchain import Blockchain
+from bitshares.proposal import Proposals
 
 
 class Scenario(object):
@@ -83,6 +84,17 @@ class Scenario(object):
     def get_chain_id(self):
         """ Get the chain ID."""
         return {"chain_id": self.chain.get_chain_properties()["chain_id"]}
+
+    def get_proposed_transactions(
+        self, account: str):
+        """ Obtain a list of pending proposals for an account
+
+            :param str account: Account name
+            :param bitshares blockchain_instance: BitShares() instance to use
+                when accesing a RPC
+        """
+        proposals: list = Proposals(account,  blockchain_instance=self.bts)
+        return {"proposed_transactions": proposals}
 
 #    def get_transaction(self, block_num: int, trx_in_block: int):
 #        """processed_transaction graphene::app::database_api::get_transaction(uint32_t block_num, uint32_t trx_in_block) const
