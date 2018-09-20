@@ -40,11 +40,8 @@ class Scenario(object):
             result: str = getattr(self, stage.get("method", ''), lambda:None)(**kwargs)
             # Copy method from call to responce.
             if result:
-                if isinstance(result, dict):
-                    result["method"] = stage.get("method", '')
-                    print(json.dumps(result))
-                else:
-                    print(result)
+                result = {"result": result,  "method":stage.get("method", '')}
+                print(json.dumps(result))
             else:
                 print("The method `{0}` is not implemented!".format(stage.get("method", '')))
 
