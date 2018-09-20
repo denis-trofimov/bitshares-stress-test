@@ -6,7 +6,7 @@
     {"method": "get_config"},
     {"method": "get_chain_id"},
     {"method": "get_dynamic_global_properties"},
-    {"method": "get_accounts", "params": {"start":"a", "stop": "a"}},
+    {"method": "get_accounts", "params": {"account_ids":["1.2.0", "1.2.1"]}},
     {"method": "get_proposed_transactions", "params": {"account":"a"}}
     ]
 }

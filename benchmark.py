@@ -14,6 +14,7 @@ from bitshares import BitShares
 from bitshares.block import Block, BlockHeader
 from bitshares.blockchain import Blockchain
 from bitshares.proposal import Proposals
+from bitshares.account import Account
 
 
 class Scenario(object):
@@ -71,15 +72,22 @@ class Scenario(object):
         """ Retrieve compile-time constants."""
         return self.chain.config()
 
-    def get_accounts(self, start='', stop='', steps=1e3, **kwargs):
-        """ Yields account names between start and stop.
+#    def get_all_accounts(self, start='', stop='', steps=1e3, **kwargs):
+#        """ Yields account names between start and stop.
+#
+#            :param str start: Start at this account name
+#            :param str stop: Stop at this account name
+#            :param int steps: Obtain ``steps`` ret with a single call from RPC
+#        """
+#        return json.dumps((account for account in self.chain.get_all_accounts(
+#            start, stop,  steps)), iterable_as_array=True)
 
-            :param str start: Start at this account name
-            :param str stop: Stop at this account name
-            :param int steps: Obtain ``steps`` ret with a single call from RPC
-        """
-        return json.dumps((account for account in self.chain.get_all_accounts(
-            start, stop,  steps)), iterable_as_array=True)
+    def get_accounts(self, account_ids: list) -> list:
+        result = []
+        for account_id in account_ids:
+            account = Account(account_id,  blockchain_instance=self.bts)
+            result.append(account)
+        return result
 
     def get_chain_id(self):
         """ Get the chain ID."""
