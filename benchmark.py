@@ -10,13 +10,23 @@
 # it as `json`
 import simplejson as json
 import logging
+from collections import OrderedDict
 from bitshares import BitShares
-from bitshares.block import Block, BlockHeader
+from bitshares.block import Block
 from bitshares.blockchain import Blockchain
 from bitshares.proposal import Proposals
 from bitshares.account import Account
 from grapheneapi.exceptions import RPCError
 from bitsharesapi.exceptions import UnhandledRPCError
+
+
+logging.basicConfig(
+    format='%(created)f - %(levelname)s - %(funcName)s - %(message)s',
+    level=logging.INFO,
+    filename='benchmark.log',
+)
+log = logging.getLogger()
+
 
 class Scenario(object):
     """ Scenario test, stress test tool for BitShares based on JSON and
@@ -28,23 +38,23 @@ class Scenario(object):
             self.scenario = json.load(file)
         # except FileNotFoundError, Error
         if not self.scenario or not self.scenario.get("stages", 0):
-            print("Empty stages!")
+            log.warning("Empty stages!")
 
     def run(self):
         # Connect bitshares
         self.bts = BitShares(
             "ws://newton.array.io:8090", nobroadcast=True, debug=True)
-        print('Connected to node "{0}".'.format(self.bts.rpc.url))
+        log.info('Connected to node "{0}".'.format(self.bts.rpc.url))
 
         for stage in self.scenario.get("stages", []):
             kwargs: dict = stage.get("params", {})
             result: str = getattr(self, stage.get("method", ''), lambda:None)(**kwargs)
             # Copy method from call to responce.
             if result:
-                result = {"result": result,  "method":stage.get("method", '')}
-                print(json.dumps(result))
+                result = OrderedDict((("method", stage.get("method", '')), ("result",  result)))
+                log.info(json.dumps(result))
             else:
-                print("The method `{0}` is not implemented!".format(stage.get("method", '')))
+                log.info("The method `{0}` is not implemented!".format(stage.get("method", '')))
 
     def get_global_properties(self):
         """ Retrieve the current global_property_object."""
@@ -57,7 +67,7 @@ class Scenario(object):
     def get_chain_properties(self):
         """ Retrieve the chain_property_object associated with the chain."""
         self.chain = Blockchain(mode="head", blockchain_instance=self.bts)
-        print("Identify the network parameters: {0}".format(
+        log.info("Identify the network parameters: {0}".format(
             self.chain.get_network()))
         return self.chain.get_chain_properties()
 
@@ -127,5 +137,4 @@ class Scenario(object):
 
 
 if __name__ == "__main__":
-    log = logging.getLogger()
     Scenario().run()
