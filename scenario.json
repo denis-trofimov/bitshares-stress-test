@@ -1,4 +1,5 @@
-{ "stages":[
+{"node":"ws://newton.array.io:8090",
+"stages":[
     {"method": "get_block", "params": {"block_num": 44193}},
     {"method": "get_transaction", "params": {"block_num": 44193, "trx_in_block": 0}},
     {"method": "get_chain_properties"},

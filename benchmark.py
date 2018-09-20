@@ -40,11 +40,19 @@ class Scenario(object):
         if not self.scenario or not self.scenario.get("stages", 0):
             log.warning("Empty stages!")
 
-    def run(self):
+    def connect(self, node, **kwargs):
         # Connect bitshares
-        self.bts = BitShares(
-            "ws://newton.array.io:8090", nobroadcast=True, debug=True)
+        self.bts = BitShares(node, kwargs)
         log.info('Connected to node "{0}".'.format(self.bts.rpc.url))
+
+    def run(self):
+        try:
+            self.connect(self.scenario.get("node"))
+        except BaseException as err:
+            log.critical('Fail to connect to node "{0} due to {1}".'.format(
+                self.scenario.get("node"), err))
+            log.error('Scenario run has stopped.')
+            return
 
         for stage in self.scenario.get("stages", []):
             kwargs: dict = stage.get("params", {})
