@@ -11,6 +11,7 @@
 import simplejson as json
 import logging
 from collections import OrderedDict
+from functools import wraps
 from bitshares import BitShares
 from bitshares.block import Block
 from bitshares.blockchain import Blockchain
@@ -26,6 +27,19 @@ logging.basicConfig(
     filename='benchmark.log',
 )
 log = logging.getLogger()
+
+
+def log_exceptions(func):
+    """ Decorator to put exceptions in callead `func` to log."""
+    @wraps(func)
+    def function_wrapper(*args: list, **kwargs: dict):
+        """ Wrapper of log_exceptions."""
+        try:
+            result = func(*args, **kwargs)
+        except (RPCError,  UnhandledRPCError) as err:
+            result = {"message": str(err)}
+        return result
+    return function_wrapper
 
 
 class Scenario(object):
@@ -98,6 +112,7 @@ class Scenario(object):
 #        return json.dumps((account for account in self.chain.get_all_accounts(
 #            start, stop,  steps)), iterable_as_array=True)
 
+    @log_exceptions
     def get_accounts(self, account_ids: list) -> list:
         """ Get a list of accounts by ID.
 
@@ -120,13 +135,10 @@ class Scenario(object):
         """ Get the chain ID."""
         return {"chain_id": self.chain.get_chain_properties()["chain_id"]}
 
+    @log_exceptions
     def get_transaction(self, block_num: int, trx_in_block: int):
         """ Fetch an individual processed transaction from a block."""
-        try:
-            transaction = self.bts.rpc.get_transaction(block_num, trx_in_block)
-        except (RPCError,  UnhandledRPCError) as err:
-            transaction = {"message": str(err)}
-        return transaction
+        return self.bts.rpc.get_transaction(block_num, trx_in_block)
 
     def get_proposed_transactions(
         self, account: str):
@@ -142,6 +154,8 @@ class Scenario(object):
 #    def get_transaction(self, block_num: int, trx_in_block: int):
 #        """processed_transaction graphene::app::database_api::get_transaction(uint32_t block_num, uint32_t trx_in_block) const
 #        used to fetch an individual transaction."""
+
+
 
 
 if __name__ == "__main__":
