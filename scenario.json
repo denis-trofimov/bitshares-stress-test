@@ -1,6 +1,6 @@
 { "stages":[
     {"method": "get_block", "params": {"block_num": 44193}},
-    {"method": "get_transaction"},
+    {"method": "get_transaction", "params": {"block_num": 44193, "trx_in_block": 0}},
     {"method": "get_chain_properties"},
     {"method": "get_global_properties"},
     {"method": "get_config"},

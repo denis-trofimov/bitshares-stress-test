@@ -15,7 +15,8 @@ from bitshares.block import Block, BlockHeader
 from bitshares.blockchain import Blockchain
 from bitshares.proposal import Proposals
 from bitshares.account import Account
-
+from grapheneapi.exceptions import RPCError
+from bitsharesapi.exceptions import UnhandledRPCError
 
 class Scenario(object):
     """ Scenario test, stress test tool for BitShares based on JSON and
@@ -80,8 +81,19 @@ class Scenario(object):
 #            start, stop,  steps)), iterable_as_array=True)
 
     def get_accounts(self, account_ids: list) -> list:
+        """ Get a list of accounts by ID.
+
+            :param str account_ids: Identify of the account
+            :param bitshares.bitshares.BitShares blockchain_instance: BitShares
+                   instance
+            :returns: Account data list
+            :rtype: list
+            :raises bitshares.exceptions.AccountDoesNotExistsException: if account
+                    does not exist
+        """
         result = []
         for account_id in account_ids:
+
             account = Account(account_id,  blockchain_instance=self.bts)
             result.append(account)
         return result
@@ -89,6 +101,14 @@ class Scenario(object):
     def get_chain_id(self):
         """ Get the chain ID."""
         return {"chain_id": self.chain.get_chain_properties()["chain_id"]}
+
+    def get_transaction(self, block_num: int, trx_in_block: int):
+        """ Fetch an individual processed transaction from a block."""
+        try:
+            transaction = self.bts.rpc.get_transaction(block_num, trx_in_block)
+        except (RPCError,  UnhandledRPCError) as err:
+            transaction = {"message": str(err)}
+        return transaction
 
     def get_proposed_transactions(
         self, account: str):
