@@ -40,17 +40,19 @@ def log_exceptions(func):
 
 
 class Scenario(object):
+
     """ Scenario test, stress test tool for BitShares based on JSON and
         pybitshares.
     """
+
     def __init__(self, script_name: str ="scenario.json"):
         try:
             with open(script_name, 'rt') as file:
-                self.scenario = json.load(file)
+                self.scenario: list = json.load(file)
         except (FileNotFoundError, json.JSONDecodeError) as err:
             log.critical(
                 'Fail to open and parse scenario file "{0}" due to {1}.'.format(
-                script_name, err)
+                    script_name, err)
             )
         log.info(
             'Start processing of scenario file "{0}".'.format(script_name)
@@ -63,9 +65,11 @@ class Scenario(object):
 
 
 class NodeCalls(object):
+
     """ Connect to a specified node and perform calls."""
-    def __init__(self, scenario: str):
-        self.scenario = scenario
+
+    def __init__(self, scenario: dict):
+        self.scenario: dict = scenario
 
     def connect(self, node: str, **kwargs):
         """ Connect to a specified node."""
@@ -77,7 +81,8 @@ class NodeCalls(object):
             self.connect(self.scenario.get("node"))
         except BaseException as err:
             log.critical('Fail to connect to node "{0} due to {1}".'.format(
-                self.scenario.get("node"), err))
+                self.scenario.get("node"), err)
+            )
             log.error('Scenario run has stopped.')
             return
 
@@ -86,11 +91,12 @@ class NodeCalls(object):
 
         for stage in self.scenario.get("stages", []):
             method: str = stage.get("method", '')
-            call = getattr(self, method, lambda:None)
+            call = getattr(self, method, lambda: None)
             # Copy method from call to responce.
-            result = {"method": method}
+            result: dict = {"method": method}
             if not method or not call:
-                result['result']['message']: str = "`{0}` is not implemented!".format(method)
+                result['result']['message']: str = ""
+                "`{0}` is not implemented!".format(method)
                 log.error(json.dumps(result))
                 continue
             else:
@@ -113,13 +119,10 @@ class NodeCalls(object):
     def get_chain_properties(self):
         """ Retrieve the chain_property_object associated with the chain."""
         self.chain = Blockchain(mode="head", blockchain_instance=self.bts)
-        log.info("Identify the network parameters: {0}".format(
-            self.chain.get_network()))
         return self.chain.get_chain_properties()
 
     def get_dynamic_global_properties(self):
-        """ This call returns the *dynamic global properties*
-        """
+        """ This call returns the *dynamic global properties*."""
         return self.chain.info()
 
     def get_config(self):
@@ -136,7 +139,6 @@ class NodeCalls(object):
 #        return json.dumps((account for account in self.chain.get_all_accounts(
 #            start, stop,  steps)), iterable_as_array=True)
 
-    @log_exceptions
     def get_accounts(self, account_ids: list) -> list:
         """ Get a list of accounts by ID.
 
@@ -147,10 +149,10 @@ class NodeCalls(object):
             :rtype: list
             :raises bitshares.exceptions.AccountDoesNotExistsException: if account
                     does not exist
+
         """
         result = []
         for account_id in account_ids:
-
             account = Account(account_id,  blockchain_instance=self.bts)
             result.append(account)
         return result
@@ -164,13 +166,13 @@ class NodeCalls(object):
         """ Fetch an individual processed transaction from a block."""
         return self.bts.rpc.get_transaction(block_num, trx_in_block)
 
-    def get_proposed_transactions(
-        self, account: str):
-        """ Obtain a list of pending proposals for an account
+    def get_proposed_transactions(self, account: str):
+        """ Obtain a list of pending proposals for an account.
 
             :param str account: Account name
             :param bitshares blockchain_instance: BitShares() instance to use
                 when accesing a RPC
+
         """
         proposals: list = Proposals(account,  blockchain_instance=self.bts)
         return {"proposed_transactions": proposals}
@@ -178,8 +180,6 @@ class NodeCalls(object):
 #    def get_transaction(self, block_num: int, trx_in_block: int):
 #        """processed_transaction graphene::app::database_api::get_transaction(uint32_t block_num, uint32_t trx_in_block) const
 #        used to fetch an individual transaction."""
-
-
 
 
 if __name__ == "__main__":
