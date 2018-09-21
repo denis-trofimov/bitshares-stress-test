@@ -7,6 +7,7 @@
 # it as `json`
 import simplejson as json
 import logging
+import argparse
 from collections import OrderedDict
 from functools import wraps
 from bitshares import BitShares
@@ -184,4 +185,10 @@ class NodeCalls(object):
 
 
 if __name__ == "__main__":
-    Scenario("scenario.json")
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-d",   dest='daemon', help="run as daemon and loop scenario execution"
+    )
+    parser.add_argument('file', help="scenario JSON file")
+    args = parser.parse_args()
+    Scenario(args.file)
