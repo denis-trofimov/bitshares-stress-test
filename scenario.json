@@ -1,13 +1,92 @@
-{"node":"ws://newton.array.io:8090",
-"stages":[
-    {"method": "get_block", "params": {"block_num": 44193}},
-    {"method": "get_transaction", "params": {"block_num": 44193, "trx_in_block": 0}},
-    {"method": "get_chain_properties"},
-    {"method": "get_global_properties"},
-    {"method": "get_config"},
-    {"method": "get_chain_id"},
-    {"method": "get_dynamic_global_properties"},
-    {"method": "get_accounts", "params": {"account_ids":["1.2.0", "1.2.1"]}},
-    {"method": "get_proposed_transactions", "params": {"account":"a"}}
+[
+  {
+    "node": "ws://hawking.array.io:8090",
+    "stages": [
+      {
+        "method": "get_block",
+        "params": {
+          "block_num": 8
+        }
+      },
+      {
+        "method": "get_transaction",
+        "params": {
+          "block_num": 8,
+          "trx_in_block": 0
+        }
+      },
+      {
+        "method": "get_chain_properties"
+      },
+      {
+        "method": "get_global_properties"
+      },
+      {
+        "method": "get_config"
+      },
+      {
+        "method": "get_chain_id"
+      },
+      {
+        "method": "get_dynamic_global_properties"
+      },
+      {
+        "method": "get_accounts",
+        "params": {
+          "account_ids": [
+            "1.2.0",
+            "1.2.1"
+          ]
+        }
+      }
     ]
-}
+  },
+  {
+    "node": "ws://newton.array.io:8090",
+    "stages": [
+      {
+        "method": "get_block",
+        "params": {
+          "block_num": 44193
+        }
+      },
+      {
+        "method": "get_transaction",
+        "params": {
+          "block_num": 44193,
+          "trx_in_block": 0
+        }
+      },
+      {
+        "method": "get_chain_properties"
+      },
+      {
+        "method": "get_global_properties"
+      },
+      {
+        "method": "get_config"
+      },
+      {
+        "method": "get_chain_id"
+      },
+      {
+        "method": "get_dynamic_global_properties"
+      },
+      {
+        "method": "get_accounts",
+        "params": {
+          "account_ids": [
+            "1.2.0",
+            "1.2.1"
+          ]
+        }
+      },
+      {
+        "method": "get_proposed_transactions",
+        "params": {
+          "account": "a"
+        }
+      }
+    ]
+  }
+]

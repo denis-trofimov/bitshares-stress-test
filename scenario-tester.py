@@ -44,14 +44,30 @@ class Scenario(object):
         pybitshares.
     """
     def __init__(self, script_name: str ="scenario.json"):
-        # try:
-        with open(script_name, 'rt') as file:
-            self.scenario = json.load(file)
-        # except FileNotFoundError, Error
-        if not self.scenario or not self.scenario.get("stages", 0):
-            log.warning("Empty stages!")
+        try:
+            with open(script_name, 'rt') as file:
+                self.scenario = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError) as err:
+            log.critical(
+                'Fail to open and parse scenario file "{0}" due to {1}.'.format(
+                script_name, err)
+            )
+        log.info(
+            'Start processing of scenario file "{0}".'.format(script_name)
+        )
+        for node_call in self.scenario:
+            NodeCalls(node_call).run()
+        log.info(
+            'Finish processing of scenario file "{0}".'.format(script_name)
+        )
 
-    def connect(self, node, **kwargs):
+
+class NodeCalls(object):
+    """ Connect to a specified node and perform calls."""
+    def __init__(self, scenario: str):
+        self.scenario = scenario
+
+    def connect(self, node: str, **kwargs):
         # Connect bitshares
         self.bts = BitShares(node, kwargs)
         log.info('Connected to node "{0}".'.format(self.bts.rpc.url))
@@ -64,6 +80,9 @@ class Scenario(object):
                 self.scenario.get("node"), err))
             log.error('Scenario run has stopped.')
             return
+
+        if not self.scenario or not self.scenario.get("stages", []):
+            log.warning("Empty stages!")
 
         for stage in self.scenario.get("stages", []):
             kwargs: dict = stage.get("params", {})
@@ -156,4 +175,4 @@ class Scenario(object):
 
 
 if __name__ == "__main__":
-    Scenario().run()
+    Scenario("scenario.json")
