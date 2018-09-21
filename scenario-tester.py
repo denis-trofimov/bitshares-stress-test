@@ -8,6 +8,8 @@
 import simplejson as json
 import logging
 import argparse
+import time
+import pprint
 from collections import OrderedDict
 from functools import wraps
 from bitshares import BitShares
@@ -47,6 +49,7 @@ class Scenario(object):
     """
 
     def __init__(self, script_name: str ="scenario.json"):
+        self.roundup: dict = {}
         try:
             with open(script_name, 'rt') as file:
                 self.scenario: list = json.load(file)
@@ -59,18 +62,21 @@ class Scenario(object):
             'Start processing of scenario file "{0}".'.format(script_name)
         )
         for node_call in self.scenario:
-            NodeCalls(node_call).run()
+            NodeCalls(node_call, self.roundup).run()
         log.info(
             'Finish processing of scenario file "{0}".'.format(script_name)
         )
+        log.info('Track time spent on calls, sum up to roundup table')
+        log.info(pprint.pformat(self.roundup))
 
 
 class NodeCalls(object):
 
     """ Connect to a specified node and perform calls."""
 
-    def __init__(self, scenario: dict):
+    def __init__(self, scenario: dict, roundup: dict):
         self.scenario: dict = scenario
+        self.roundup = roundup
 
     def connect(self, node: str, **kwargs):
         """ Connect to a specified node."""
@@ -93,6 +99,7 @@ class NodeCalls(object):
             log.warning("Empty stages!")
 
         for stage in self.scenario.get("stages", []):
+            start_time = time.time()
             method: str = stage.get("method", '')
             call = getattr(self, method, lambda: None)
             # Copy method from call to responce.
@@ -110,6 +117,8 @@ class NodeCalls(object):
                 except (RPCError,  UnhandledRPCError) as err:
                     result['result']['message']: str = str(err)
                     log.error(json.dumps(result))
+            # Track time spent on calls, sum up to table
+            self.roundup[method] = self.roundup.get(method, 0) + time.time() - start_time
 
     def get_global_properties(self):
         """ Retrieve the current global_property_object."""
