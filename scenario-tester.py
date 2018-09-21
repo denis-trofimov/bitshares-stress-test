@@ -1,11 +1,8 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 """ Scenario test, stress test tool for BitShares based on JSON and pybitshares.
-    get_block, get_transaction, get_chain_properties, get_global_properties, get_config, get_chain_id, get_dynamic_global_properties, get_accounts
 """
 
-
-#import json
 # Since simplejson is backwards compatible, you should feel free to import
 # it as `json`
 import simplejson as json
@@ -30,7 +27,7 @@ log = logging.getLogger()
 
 
 def log_exceptions(func):
-    """ Decorator to put exceptions in callead `func` to log."""
+    """ Decorator to put exceptions in called `func` to log."""
     @wraps(func)
     def function_wrapper(*args: list, **kwargs: dict):
         """ Wrapper of log_exceptions."""
