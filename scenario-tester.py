@@ -9,7 +9,6 @@ import simplejson as json
 import logging
 import argparse
 import time
-import pprint
 from collections import OrderedDict
 from functools import wraps
 from bitshares import BitShares
@@ -67,7 +66,7 @@ class Scenario(object):
             'Finish processing of scenario file "{0}".'.format(script_name)
         )
         log.info('Track time spent on calls, sum up to roundup table')
-        log.info(pprint.pformat(self.roundup))
+        log.info(json.dumps(self.roundup,  indent=(2 * ' ')))
 
 
 class NodeCalls(object):
@@ -107,16 +106,16 @@ class NodeCalls(object):
             if not method or not call:
                 result['result']['message']: str = ""
                 "`{0}` is not implemented!".format(method)
-                log.error(json.dumps(result))
+                log.error(json.dumps(result,  indent=(2 * ' ')))
                 continue
             else:
                 kwargs: dict = stage.get("params", {})
                 try:
                     result['result']: str = call(**kwargs)
-                    log.info(json.dumps(result))
+                    log.info(json.dumps(result,  indent=(2 * ' ')))
                 except (RPCError,  UnhandledRPCError) as err:
                     result['result']['message']: str = str(err)
-                    log.error(json.dumps(result))
+                    log.error(json.dumps(result,  indent=(2 * ' ')))
             # Track time spent on calls, sum up to table
             self.roundup[method] = self.roundup.get(method, 0) + time.time() - start_time
 
