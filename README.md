@@ -14,11 +14,22 @@
     $ git clone https://github.com/denis-trofimov/bitshares-stress-test.git
 
 
-### Usage:
+### Usage command line help:
+```sh
+python3 scenario-tester.py -h
+usage: scenario-tester.py [-h] [-d DAEMON] file
+
+positional arguments:
+  file        scenario JSON file
+
+optional arguments:
+  -h, --help  show this help message and exit
+  -d DAEMON   run as daemon and loop scenario execution
+```
 
 #### Scenario tester
     $ cd bitshares-stress-test
-    $ python3 scenario-tester.py
+    $ python3 scenario-tester.py scenario.json
 
 #### Example scenario script in the JSON format [scenario.json](scenario.json).
 
