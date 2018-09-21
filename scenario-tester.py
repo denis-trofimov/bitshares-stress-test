@@ -75,6 +75,8 @@ class NodeCalls(object):
         """ Connect to a specified node."""
         self.bts = BitShares(node, kwargs)
         log.info('Connected to node "{0}".'.format(self.bts.rpc.url))
+        if not getattr(self, 'chain', None):
+            self.chain = Blockchain(blockchain_instance=self.bts)
 
     def run(self):
         try:
@@ -118,7 +120,6 @@ class NodeCalls(object):
 
     def get_chain_properties(self):
         """ Retrieve the chain_property_object associated with the chain."""
-        self.chain = Blockchain(mode="head", blockchain_instance=self.bts)
         return self.chain.get_chain_properties()
 
     def get_dynamic_global_properties(self):
