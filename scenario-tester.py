@@ -68,7 +68,7 @@ class NodeCalls(object):
         self.scenario = scenario
 
     def connect(self, node: str, **kwargs):
-        # Connect bitshares
+        """ Connect to a specified node."""
         self.bts = BitShares(node, kwargs)
         log.info('Connected to node "{0}".'.format(self.bts.rpc.url))
 
@@ -85,14 +85,22 @@ class NodeCalls(object):
             log.warning("Empty stages!")
 
         for stage in self.scenario.get("stages", []):
-            kwargs: dict = stage.get("params", {})
-            result: str = getattr(self, stage.get("method", ''), lambda:None)(**kwargs)
+            method: str = stage.get("method", '')
+            call = getattr(self, method, lambda:None)
             # Copy method from call to responce.
-            if result:
-                result = OrderedDict((("method", stage.get("method", '')), ("result",  result)))
-                log.info(json.dumps(result))
+            result = {"method": method}
+            if not method or not call:
+                result['result']['message']: str = "`{0}` is not implemented!".format(method)
+                log.error(json.dumps(result))
+                continue
             else:
-                log.info("The method `{0}` is not implemented!".format(stage.get("method", '')))
+                kwargs: dict = stage.get("params", {})
+                try:
+                    result['result']: str = call(**kwargs)
+                    log.info(json.dumps(result))
+                except (RPCError,  UnhandledRPCError) as err:
+                    result['result']['message']: str = str(err)
+                    log.error(json.dumps(result))
 
     def get_global_properties(self):
         """ Retrieve the current global_property_object."""
