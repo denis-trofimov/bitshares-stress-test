@@ -9,6 +9,8 @@ import simplejson as json
 import logging
 import argparse
 import time
+import itertools
+from multiprocessing import Pool, TimeoutError
 from collections import OrderedDict
 from functools import wraps
 from bitshares import BitShares
@@ -64,15 +66,20 @@ class Scenario(object):
         log.info(json.dumps(self.roundup,  indent=(2 * ' ')))
 
 
+def make_call(*args: tuple):
+    """ Make single call from calls list."""
+#    print(args)
+    return NodeCall(args[0]).call_wrapper(args[1], args[2], args[3])
+
 class NodeSequence(object):
     """ Connect to a specified node and perform calls."""
 
     def __init__(self, scenario: dict, roundup: dict):
         self.scenario: dict = scenario
         self.node = self.scenario.get("node")
-        self.cycles: int =  self.scenario.get("cycles",  0)
-        self.workers: int =  self.scenario.get("workers",  0)
-        self.time_limit: int =  self.scenario.get("time_limit",  0)
+        self.cycles: int =  self.scenario.get("cycles",  1)
+        self.workers: int =  self.scenario.get("workers",  1)
+        self.time_limit: int =  self.scenario.get("time_limit",  20)
         self.roundup = roundup
 
     def prepare_calls_sequence(self):
@@ -85,8 +92,8 @@ class NodeSequence(object):
         for stage in self.scenario.get("stages", []):
             method: str = stage.get("method", '')
             call = getattr(NodeCall, method, lambda: None)
-            print(call)
-            self.calls_list.append((call, method,  stage.get("params", {})))
+#            print(call)
+            self.calls_list.append((self.node, call, method,  stage.get("params", {})))
 
     def generate_cycled_call_sequence(self):
         """Generate cycles of each node_call."""
@@ -97,15 +104,50 @@ class NodeSequence(object):
     def run(self):
         """ Prepare and run loop for single node in scenarios."""
         self.prepare_calls_sequence()
-        for args in self.generate_cycled_call_sequence():
-            """ Make single call from calls list."""
-            result = NodeCall(self.node).call_wrapper(args[0], args[1], args[2])
-            print(result)
+        start_time = time.time()
+        run_info = {}
+        success = []
+        errors = []
+        successes =0
+        with Pool(processes=self.workers) as pool:
+            """ starmap_async(func, iterable[, chunksize[, callback[,
+                error_callback]]])
+                A combination of starmap() and map_async() that iterates over
+                iterable of iterables and calls func with the iterables unpacked.
+                Returns a result object.
+                """
+            multiple_results = pool.starmap_async(
+                make_call, self.generate_cycled_call_sequence(),  self.workers,
+                success.append, errors.append)
 
-    @staticmethod
-    def make_call(args: tuple):
-        """ Make single call from calls list."""
-        NodeCall(args[0]).call_wrapper(args[1], args[2], args[3])
+#        for args in self.generate_cycled_call_sequence():
+#            """ Make single call from calls list."""
+#            result = NodeCall(self.node).call_wrapper(args[0], args[1], args[2])
+#            print(result)
+
+            for result in multiple_results.get():
+                message = result.get('result',{}).get('message')
+                if message:
+                    errors.append(result)
+                else:
+                    successes += 1
+
+            # Track time spent on calls, sum up to table
+            run_info['time'] = run_info.get('time', 0) + time.time() - start_time
+            run_info['success'] = run_info.get('success', 0) + successes
+            run_info['errors'] = run_info.get('errors', 0) + len(errors)
+            run_info['cycles'] = self.cycles
+            run_info['workers'] = self.workers
+            run_info['time_limit'] = self.time_limit
+            if run_info['time']:
+                run_info['TPS'] = float(
+                    run_info['success'] + run_info['errors']
+                ) / run_info['time']
+            else:
+                run_info['TPS'] = 'undefined'
+            self.roundup[self.node] = run_info
+
+            log.error(json.dumps(errors,  indent=(2 * ' ')))
 
 
 class NodeCall():
@@ -115,19 +157,17 @@ class NodeCall():
         self.bts = BitShares(node)
 
     def call_wrapper(self, call, method: str, kwargs: dict):
+#        result: str = call(self, **kwargs)
         # Copy method from call to responce.
         result: dict = {"method": method}
         if not method or not call:
             result['result']['message']: str = ""
             "`{0}` is not implemented!".format(method)
-#            log.error(json.dumps(result,  indent=(2 * ' ')))
         else:
             try:
                 result['result']: str = call(self, **kwargs)
-#                log.info(json.dumps(result,  indent=(2 * ' ')))
             except (RPCError,  UnhandledRPCError) as err:
                 result['result']['message']: str = str(err)
-#                log.error(json.dumps(result,  indent=(2 * ' ')))
         return result
 
     def get_global_properties(self):
