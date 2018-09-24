@@ -7,7 +7,7 @@
 ### Install dependancies:
 
     $ sudo apt-get install -y -qq libffi-dev libssl-dev python-dev python3-dev python3-pip
-    $ pip3 install -q bitshares requests
+    $ pip3 install -q bitshares requests simplejson
 
 ### Clone repository:
 
