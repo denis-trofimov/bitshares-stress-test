@@ -1,0 +1,15 @@
+{
+  "scenarios": [
+    {
+      "node": "ws://hawking.array.io:8090",
+      "cycles": 10,
+      "workers": 10,
+      "time_limit": 20,
+      "stages": [
+        {
+          "method": "get_global_properties"
+        }
+      ]
+    }
+  ]
+}
