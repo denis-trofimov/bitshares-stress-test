@@ -11,18 +11,17 @@ import argparse
 import time
 import itertools
 from multiprocessing import Pool, TimeoutError
-from collections import OrderedDict
 from functools import wraps
 from bitshares import BitShares
 from bitshares.block import Block
 from bitshares.blockchain import Blockchain
-from bitshares.proposal import Proposals
 from bitshares.account import Account
 from grapheneapi.exceptions import RPCError
 from bitsharesapi.exceptions import UnhandledRPCError
 
 
 log = logging.getLogger()
+
 
 def log_exceptions(func):
     """ Decorator to put exceptions in called `func` to log."""
@@ -68,18 +67,19 @@ class Scenario(object):
 
 def make_call(*args: tuple):
     """ Make single call from calls list."""
-#    print(args)
     return NodeCall(args[0]).call_wrapper(args[1], args[2], args[3])
 
+
 class NodeSequence(object):
+
     """ Connect to a specified node and perform calls."""
 
     def __init__(self, scenario: dict, roundup: dict):
         self.scenario: dict = scenario
         self.node = self.scenario.get("node")
-        self.cycles: int =  self.scenario.get("cycles",  1)
-        self.workers: int =  self.scenario.get("workers",  1)
-        self.time_limit: int =  self.scenario.get("time_limit",  20)
+        self.cycles: int = self.scenario.get("cycles",  1)
+        self.workers: int = self.scenario.get("workers",  1)
+        self.time_limit: int = self.scenario.get("time_limit",  20)
         self.roundup = roundup
 
     def prepare_calls_sequence(self):
@@ -87,12 +87,12 @@ class NodeSequence(object):
 
             :returns calls_list     The elements of the iterable are expected to
             be iterables that are unpacked as arguments.
+
         """
         self.calls_list = []
         for stage in self.scenario.get("stages", []):
             method: str = stage.get("method", '')
             call = getattr(NodeCall, method, lambda: None)
-#            print(call)
             self.calls_list.append((self.node, call, method,  stage.get("params", {})))
 
     def generate_cycled_call_sequence(self):
@@ -108,7 +108,7 @@ class NodeSequence(object):
         run_info = {}
         success = []
         errors = []
-        successes =0
+        successes = 0
         with Pool(processes=self.workers) as pool:
             """ starmap_async(func, iterable[, chunksize[, callback[,
                 error_callback]]])
@@ -119,11 +119,6 @@ class NodeSequence(object):
             multiple_results = pool.starmap_async(
                 make_call, self.generate_cycled_call_sequence(),  self.workers,
                 success.append, errors.append)
-
-#        for args in self.generate_cycled_call_sequence():
-#            """ Make single call from calls list."""
-#            result = NodeCall(self.node).call_wrapper(args[0], args[1], args[2])
-#            print(result)
 
             for result in multiple_results.get():
                 log.info(json.dumps(result,  indent=(2 * ' ')))
@@ -153,13 +148,14 @@ class NodeSequence(object):
 
 
 class NodeCall():
+
     """ Concurent call a method for node."""
+
     def __init__(self, node: str):
         """ Connect to a specified node."""
         self.bts = BitShares(node)
 
     def call_wrapper(self, call, method: str, kwargs: dict):
-#        result: str = call(self, **kwargs)
         # Copy method from call to responce.
         result: dict = {"method": method}
         if not method or not call:
@@ -167,6 +163,7 @@ class NodeCall():
             "`{0}` is not implemented!".format(method)
         else:
             try:
+                # call can return dict, list, str
                 result['result'] = call(self, **kwargs)
             except (RPCError,  UnhandledRPCError) as err:
                 result['error']: str = str(err)
@@ -223,6 +220,7 @@ class NodeCall():
         """ Fetch an individual processed transaction from a block."""
         result = self.bts.rpc.get_transaction(block_num, trx_in_block)
         return dict(result)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
