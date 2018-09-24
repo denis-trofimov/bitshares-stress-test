@@ -126,6 +126,8 @@ class NodeSequence(object):
 #            print(result)
 
             for result in multiple_results.get():
+                log.info(json.dumps(result,  indent=(2 * ' ')))
+
                 message = result.get('error', '')
                 if message:
                     errors.append(result)
@@ -176,8 +178,8 @@ class NodeCall():
 
     def get_block(self, block_num: int):
         """ Retrieve a full, signed block."""
-        result = Block(block_num, blockchain_instance=self.bts, lazy=False)
-        return json.dumps(result,  indent=(2 * ' '))
+        result = Block(block_num, blockchain_instance=self.bts)
+        return dict(result)
 
     def get_chain_properties(self):
         """ Retrieve the chain_property_object associated with the chain."""
@@ -209,17 +211,18 @@ class NodeCall():
         result = []
         for account_id in account_ids:
             account = Account(account_id,  blockchain_instance=self.bts)
-            result.append(account)
+            result.append(dict(account))
         return result
 
     def get_chain_id(self):
         """ Get the chain ID."""
         self.chain = Blockchain(blockchain_instance=self.bts)
-        return {"chain_id": self.chain.get_chain_properties()["chain_id"]}
+        return self.chain.get_chain_properties()
 
     def get_transaction(self, block_num: int, trx_in_block: int):
         """ Fetch an individual processed transaction from a block."""
-        return self.bts.rpc.get_transaction(block_num, trx_in_block)
+        result = self.bts.rpc.get_transaction(block_num, trx_in_block)
+        return dict(result)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
