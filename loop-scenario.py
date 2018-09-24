@@ -56,7 +56,7 @@ class Scenario(object):
             'Start processing of scenario file "{0}".'.format(script_name)
         )
         for node_call in self.scenario.get("scenarios", []):
-            NodeCalls(node_call, self.roundup).run()
+            NodeSequence(node_call, self.roundup).run()
         log.info(
             'Finish processing of scenario file "{0}".'.format(script_name)
         )
@@ -64,7 +64,7 @@ class Scenario(object):
         log.info(json.dumps(self.roundup,  indent=(2 * ' ')))
 
 
-class NodeCalls(object):
+class NodeSequence(object):
     """ Connect to a specified node and perform calls."""
 
     def __init__(self, scenario: dict, roundup: dict):
@@ -84,7 +84,8 @@ class NodeCalls(object):
         self.calls_list = []
         for stage in self.scenario.get("stages", []):
             method: str = stage.get("method", '')
-            call = getattr(self, method, lambda: None)
+            call = getattr(NodeCall, method, lambda: None)
+            print(call)
             self.calls_list.append((call, method,  stage.get("params", {})))
 
     def generate_cycled_call_sequence(self):
@@ -98,15 +99,16 @@ class NodeCalls(object):
         self.prepare_calls_sequence()
         for args in self.generate_cycled_call_sequence():
             """ Make single call from calls list."""
-            Call(self.node).call_wrapper(args[0], args[1], args[2])
+            result = NodeCall(self.node).call_wrapper(args[0], args[1], args[2])
+            print(result)
 
     @staticmethod
     def make_call(args: tuple):
         """ Make single call from calls list."""
-        Call(args[0]).call_wrapper(args[1], args[2], args[3])
+        NodeCall(args[0]).call_wrapper(args[1], args[2], args[3])
 
 
-class Call():
+class NodeCall():
     """ Concurent call a method for node."""
     def __init__(self, node: str):
         """ Connect to a specified node."""
@@ -121,7 +123,7 @@ class Call():
 #            log.error(json.dumps(result,  indent=(2 * ' ')))
         else:
             try:
-                result['result']: str = call(**kwargs)
+                result['result']: str = call(self, **kwargs)
 #                log.info(json.dumps(result,  indent=(2 * ' ')))
             except (RPCError,  UnhandledRPCError) as err:
                 result['result']['message']: str = str(err)
@@ -131,6 +133,10 @@ class Call():
     def get_global_properties(self):
         """ Retrieve the current global_property_object."""
         return self.bts.info()
+
+    def get_transaction(self, block_num: int, trx_in_block: int):
+        """ Fetch an individual processed transaction from a block."""
+        return self.bts.rpc.get_transaction(block_num, trx_in_block)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
