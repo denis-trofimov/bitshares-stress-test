@@ -6,6 +6,7 @@
 # Since simplejson is backwards compatible, you should feel free to import
 # it as `json`
 import simplejson as json
+import csv
 import logging
 import argparse
 import time
@@ -42,8 +43,15 @@ class Scenario(object):
         pybitshares.
     """
 
+    def save_csv(self):
+        fields = self.node_rows[0].keys()
+        with open("node_performance.csv",  "a") as file:
+           writer = csv.DictWriter(file, fields)
+           writer.writeheader()
+           writer.writerows(self.node_rows)
+
     def __init__(self, script_name: str ="scenario.json"):
-        self.roundup: dict = {}
+        self.node_rows: list = []
 
         try:
             with open(script_name, 'rt') as file:
@@ -57,12 +65,14 @@ class Scenario(object):
             'Start processing of scenario file "{0}".'.format(script_name)
         )
         for node_call in self.scenario.get("scenarios", []):
-            NodeSequence(node_call, self.roundup).run()
+            NodeSequence(node_call, self.node_rows).run()
         log.info(
             'Finish processing of scenario file "{0}".'.format(script_name)
         )
-        log.info('Track time spent on calls, sum up to roundup table')
-        log.info(json.dumps(self.roundup,  indent=(2 * ' ')))
+        log.info('Track time spent on calls, sum up to node_rows table')
+
+        self.save_csv()
+        log.info(json.dumps(self.node_rows,  indent=(2 * ' ')))
 
 
 def make_call(*args: tuple):
@@ -74,13 +84,13 @@ class NodeSequence(object):
 
     """ Connect to a specified node and perform calls."""
 
-    def __init__(self, scenario: dict, roundup: dict):
+    def __init__(self, scenario: dict, node_rows: list):
         self.scenario: dict = scenario
         self.node = self.scenario.get("node")
         self.cycles: int = self.scenario.get("cycles",  1)
         self.workers: int = self.scenario.get("workers",  1)
         self.time_limit: int = self.scenario.get("time_limit",  20)
-        self.roundup = roundup
+        self.node_rows = node_rows
 
     def prepare_calls_sequence(self):
         """ Create calls sequence from a script for node.
@@ -121,7 +131,7 @@ class NodeSequence(object):
                 success.append, errors.append)
 
             for result in multiple_results.get():
-                log.info(json.dumps(result,  indent=(2 * ' ')))
+#                log.info(json.dumps(result,  indent=(2 * ' ')))
 
                 message = result.get('error', '')
                 if message:
@@ -133,6 +143,7 @@ class NodeSequence(object):
             run_info['time'] = run_info.get('time', 0) + time.time() - start_time
             run_info['success'] = run_info.get('success', 0) + successes
             run_info['errors'] = run_info.get('errors', 0) + len(errors)
+            run_info['node'] = self.node
             run_info['cycles'] = self.cycles
             run_info['workers'] = self.workers
             run_info['time_limit'] = self.time_limit
@@ -142,7 +153,7 @@ class NodeSequence(object):
                 ) / run_info['time']
             else:
                 run_info['TPS'] = 'undefined'
-            self.roundup[self.node] = run_info
+            self.node_rows.append(run_info)
 
             log.error(json.dumps(errors,  indent=(2 * ' ')))
 
