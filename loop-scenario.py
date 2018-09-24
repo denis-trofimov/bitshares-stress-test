@@ -126,7 +126,7 @@ class NodeSequence(object):
 #            print(result)
 
             for result in multiple_results.get():
-                message = result.get('result',{}).get('message')
+                message = result.get('error', '')
                 if message:
                     errors.append(result)
                 else:
@@ -161,13 +161,13 @@ class NodeCall():
         # Copy method from call to responce.
         result: dict = {"method": method}
         if not method or not call:
-            result['result']['message']: str = ""
+            result['error']: str = ""
             "`{0}` is not implemented!".format(method)
         else:
             try:
-                result['result']: str = call(self, **kwargs)
+                result['result'] = call(self, **kwargs)
             except (RPCError,  UnhandledRPCError) as err:
-                result['result']['message']: str = str(err)
+                result['error']: str = str(err)
         return result
 
     def get_global_properties(self):
@@ -176,7 +176,8 @@ class NodeCall():
 
     def get_block(self, block_num: int):
         """ Retrieve a full, signed block."""
-        return Block(block_num, blockchain_instance=self.bts, lazy=False)
+        result = Block(block_num, blockchain_instance=self.bts, lazy=False)
+        return json.dumps(result,  indent=(2 * ' '))
 
     def get_chain_properties(self):
         """ Retrieve the chain_property_object associated with the chain."""
