@@ -174,6 +174,48 @@ class NodeCall():
         """ Retrieve the current global_property_object."""
         return self.bts.info()
 
+    def get_block(self, block_num: int):
+        """ Retrieve a full, signed block."""
+        return Block(block_num, blockchain_instance=self.bts, lazy=False)
+
+    def get_chain_properties(self):
+        """ Retrieve the chain_property_object associated with the chain."""
+        self.chain = Blockchain(blockchain_instance=self.bts)
+        return self.chain.get_chain_properties()
+
+    def get_dynamic_global_properties(self):
+        """ This call returns the *dynamic global properties*."""
+        self.chain = Blockchain(blockchain_instance=self.bts)
+        return self.chain.info()
+
+    def get_config(self):
+        """ Retrieve compile-time constants."""
+        self.chain = Blockchain(blockchain_instance=self.bts)
+        return self.chain.config()
+
+    def get_accounts(self, account_ids: list) -> list:
+        """ Get a list of accounts by ID.
+
+            :param str account_ids: Identify of the account
+            :param bitshares.bitshares.BitShares blockchain_instance: BitShares
+                   instance
+            :returns: Account data list
+            :rtype: list
+            :raises bitshares.exceptions.AccountDoesNotExistsException: if account
+                    does not exist
+
+        """
+        result = []
+        for account_id in account_ids:
+            account = Account(account_id,  blockchain_instance=self.bts)
+            result.append(account)
+        return result
+
+    def get_chain_id(self):
+        """ Get the chain ID."""
+        self.chain = Blockchain(blockchain_instance=self.bts)
+        return {"chain_id": self.chain.get_chain_properties()["chain_id"]}
+
     def get_transaction(self, block_num: int, trx_in_block: int):
         """ Fetch an individual processed transaction from a block."""
         return self.bts.rpc.get_transaction(block_num, trx_in_block)
