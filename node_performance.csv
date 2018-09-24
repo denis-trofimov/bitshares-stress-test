@@ -1,2 +1,2 @@
-time,success,errors,node,cycles,workers,time_limit,TPS
-14.75301218032837,800,0,ws://hawking.array.io:8090,100,10,20,54.226214295865496
+"node","cycles","workers","success","errors","time_limit","time","TPS"
+"ws://hawking.array.io:8090","100","10","800","0","20","13.962287664413452","57.29720080463674"

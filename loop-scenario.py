@@ -46,7 +46,7 @@ class Scenario(object):
     def save_csv(self):
         fields = self.node_rows[0].keys()
         with open("node_performance.csv",  "a") as file:
-           writer = csv.DictWriter(file, fields)
+           writer = csv.DictWriter(file, fields, quoting=csv.QUOTE_ALL)
            writer.writeheader()
            writer.writerows(self.node_rows)
 
@@ -140,13 +140,13 @@ class NodeSequence(object):
                     successes += 1
 
             # Track time spent on calls, sum up to table
-            run_info['time'] = run_info.get('time', 0) + time.time() - start_time
-            run_info['success'] = run_info.get('success', 0) + successes
-            run_info['errors'] = run_info.get('errors', 0) + len(errors)
             run_info['node'] = self.node
             run_info['cycles'] = self.cycles
             run_info['workers'] = self.workers
+            run_info['success'] = run_info.get('success', 0) + successes
+            run_info['errors'] = run_info.get('errors', 0) + len(errors)
             run_info['time_limit'] = self.time_limit
+            run_info['time'] = run_info.get('time', 0) + time.time() - start_time
             if run_info['time']:
                 run_info['TPS'] = float(
                     run_info['success'] + run_info['errors']
