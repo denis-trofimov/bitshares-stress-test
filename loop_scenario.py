@@ -96,6 +96,8 @@ def creator(workers: int , data,  queue: Queue):
     # send termination sentinel, one for each process
     for i in range(workers):
         queue.put(sentinel)
+    print(f'Creating send termination sentinels, one for each of {workers}'
+    ' process and putting it on the queue')
 
 
 def worker(node: str, worker_name: str, queue: Queue, queue_error: Queue, queue_success: Queue):
@@ -105,6 +107,10 @@ def worker(node: str, worker_name: str, queue: Queue, queue_error: Queue, queue_
     successes = 0
     print("Started worker {0}!".format(worker_name))
     for args in iter(queue.get, sentinel):
+#    while True:
+#        args = queue.get()
+#        if args is sentinel: # detect sentinel
+#            break
         counter += 1
         print("Worker {0} got {1} args.".format(worker_name, args))
         result = connection.call_wrapper(*args)
@@ -114,6 +120,8 @@ def worker(node: str, worker_name: str, queue: Queue, queue_error: Queue, queue_
             successes += 1
     queue_success.put(successes)
     print("Worker {0} done {1} jobs.".format(worker_name, counter))
+    print(f"{queue.qsize()} the approximate size of the queue.")
+
 
 
 class NodeSequence(object):
@@ -166,8 +174,8 @@ class NodeSequence(object):
         )
         process.start()
         processes.append(process)
-        for i in range(self.workers):
-            worker_name = "worker-{0}".format(i)
+        for index in range(self.workers):
+            worker_name = f"worker-{index}"
             process = Process(
                 daemon=True, target=worker,
                 args=(self.node, worker_name, queue, queue_error, queue_success)
@@ -175,9 +183,10 @@ class NodeSequence(object):
             processes.append(process)
             process.start()
 
-        queue.join()
+        print(f"Before join {queue.qsize()} the approximate size of the queue.")
         for process in processes:
             process.join()
+        print(f"After join {queue.qsize()} the approximate size of the queue.")
 
         #  send termination sentinel, one for each process
         queue_error.put(None)
