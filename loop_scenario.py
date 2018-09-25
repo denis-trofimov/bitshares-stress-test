@@ -12,7 +12,7 @@ import argparse
 import time
 import itertools
 import os
-from multiprocessing import Pool, TimeoutError
+from multiprocessing import Pool, TimeoutError, Process, Queue, JoinableQueue
 from functools import wraps
 from bitshares import BitShares
 from bitshares.block import Block
@@ -22,6 +22,7 @@ from grapheneapi.exceptions import RPCError
 from bitsharesapi.exceptions import UnhandledRPCError
 
 
+sentinel = -1
 log = logging.getLogger()
 
 
@@ -69,7 +70,7 @@ class Scenario(object):
             'Start processing of scenario file "{0}".'.format(script_name)
         )
         for node_call in self.scenario.get("scenarios", []):
-            NodeSequence(node_call, self.node_rows).run()
+            NodeSequence(node_call, self.node_rows).run_workers()
         log.info(
             'Finish processing of scenario file "{0}".'.format(script_name)
         )
@@ -81,7 +82,38 @@ class Scenario(object):
 
 def make_call(*args: tuple):
     """ Make single call from calls list."""
+    time.sleep(0.5)  # 100ms
     return NodeCall(args[0]).call_wrapper(args[1], args[2], args[3])
+
+def creator(workers: int , data,  queue: Queue):
+    """
+    Creates data to be consumed and waits for the consumer
+    to finish processing
+    """
+    print('Creating data and putting it on the queue')
+    for item in data:
+        queue.put(item)
+    # send termination sentinel, one for each process
+    for i in range(workers):
+        queue.put(sentinel)
+
+
+def worker(node: str, worker_name: str, queue: Queue, queue_error: Queue, queue_success: Queue):
+    """ Consumes some data from queue and works on it."""
+    connection = NodeCall(node)
+    counter = 0
+    successes = 0
+    print("Started worker {0}!".format(worker_name))
+    for args in iter(queue.get, sentinel):
+        counter += 1
+        print("Worker {0} got {1} args.".format(worker_name, args))
+        result = connection.call_wrapper(*args)
+        if isinstance(result, dict) and result.get('error', ''):
+            queue_error.put(result)
+        else:
+            successes += 1
+    queue_success.put(successes)
+    print("Worker {0} done {1} jobs.".format(worker_name, counter))
 
 
 class NodeSequence(object):
@@ -107,13 +139,69 @@ class NodeSequence(object):
         for stage in self.scenario.get("stages", []):
             method: str = stage.get("method", '')
             call = getattr(NodeCall, method, lambda: None)
-            self.calls_list.append((self.node, call, method,  stage.get("params", {})))
+            self.calls_list.append((call, method,  stage.get("params", {})))
+#             self.calls_list.append((self.node, call, method,  stage.get("params", {})))
 
     def generate_cycled_call_sequence(self):
         """Generate cycles of each node_call."""
         for iteration in range(self.cycles):
             for call in self.calls_list:
                 yield call
+
+    def run_workers(self):
+        """ Prepare and run loop for single node in scenarios."""
+        self.prepare_calls_sequence()
+        start_time = time.time()
+        run_info = {}
+        errors = []
+        successes = 0
+
+        queue = JoinableQueue()
+        queue_error = Queue()
+        queue_success = Queue()
+        processes = []
+        process = Process(
+            daemon=True, target=creator,
+            args=(self.workers, self.generate_cycled_call_sequence(), queue)
+        )
+        process.start()
+        processes.append(process)
+        for i in range(self.workers):
+            worker_name = "worker-{0}".format(i)
+            process = Process(
+                daemon=True, target=worker,
+                args=(self.node, worker_name, queue, queue_error, queue_success)
+            )
+            processes.append(process)
+            process.start()
+
+        queue.join()
+        for process in processes:
+            process.join()
+
+        #  send termination sentinel, one for each process
+        queue_error.put(None)
+        queue_success.put(None)
+        for number in iter(queue_success.get, None):
+            successes += number
+        for message in iter(queue_error.get, None):
+            errors.append(message)
+
+        # Track time spent on calls, sum up to table
+        run_info['node'] = self.node
+        run_info['cycles'] = self.cycles
+        run_info['workers'] = self.workers
+        run_info['success'] = run_info.get('success', 0) + successes
+        run_info['errors'] = run_info.get('errors', 0) + len(errors)
+        run_info['time_limit'] = self.time_limit
+        run_info['time'] = run_info.get('time', 0) + time.time() - start_time
+        if run_info['time']:
+            run_info['TPS'] = float(run_info['success']) / run_info['time']
+        else:
+            run_info['TPS'] = 'undefined'
+        self.node_rows.append(run_info)
+
+        log.error(json.dumps(errors,  indent=(2 * ' ')))
 
     def run(self):
         """ Prepare and run loop for single node in scenarios."""
@@ -134,7 +222,7 @@ class NodeSequence(object):
                 make_call, self.generate_cycled_call_sequence(),  self.workers,
                 success.append, errors.append)
 
-            for result in multiple_results.get():
+            for result in multiple_results.get(timeout=2):
 #                log.info(json.dumps(result,  indent=(2 * ' ')))
 
                 message = result.get('error', '')
@@ -152,9 +240,7 @@ class NodeSequence(object):
             run_info['time_limit'] = self.time_limit
             run_info['time'] = run_info.get('time', 0) + time.time() - start_time
             if run_info['time']:
-                run_info['TPS'] = float(
-                    run_info['success'] + run_info['errors']
-                ) / run_info['time']
+                run_info['TPS'] = float(run_info['success']) / run_info['time']
             else:
                 run_info['TPS'] = 'undefined'
             self.node_rows.append(run_info)
