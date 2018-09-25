@@ -11,6 +11,7 @@ import logging
 import argparse
 import time
 import itertools
+import os
 from multiprocessing import Pool, TimeoutError
 from functools import wraps
 from bitshares import BitShares
@@ -44,10 +45,13 @@ class Scenario(object):
     """
 
     def save_csv(self):
+        file_name = "node_performance.csv"
         fields = self.node_rows[0].keys()
-        with open("node_performance.csv",  "a") as file:
+        exist_file = os.path.isfile(file_name)
+        with open(file_name,  "a") as file:
            writer = csv.DictWriter(file, fields, quoting=csv.QUOTE_ALL)
-           writer.writeheader()
+           if not exist_file:
+               writer.writeheader()
            writer.writerows(self.node_rows)
 
     def __init__(self, script_name: str ="scenario.json"):
