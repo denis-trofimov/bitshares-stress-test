@@ -104,21 +104,19 @@ def worker(node: str, worker_name: str, queue: Queue, queue_error: Queue, queue_
     """ Consumes some data from queue and works on it."""
     connection = NodeCall(node)
     counter = 0
-    successes = 0
+    start = time.perf_counter()
     print("Started worker {0}!".format(worker_name))
     for args in iter(queue.get, sentinel):
-#    while True:
-#        args = queue.get()
-#        if args is sentinel: # detect sentinel
-#            break
         counter += 1
-        print("Worker {0} got {1} args.".format(worker_name, args))
+#        print("Worker {0} got {1} args.".format(worker_name, args))
         result = connection.call_wrapper(*args)
+        stop = time.perf_counter()
         if isinstance(result, dict) and result.get('error', ''):
             queue_error.put(result)
         else:
-            successes += 1
-    queue_success.put(successes)
+            queue_success.put({args[1]: stop - start})
+        start = stop
+
     print("Worker {0} done {1} jobs.".format(worker_name, counter))
     print(f"{queue.qsize()} the approximate size of the queue.")
 
@@ -159,8 +157,9 @@ class NodeSequence(object):
     def run_workers(self):
         """ Prepare and run loop for single node in scenarios."""
         self.prepare_calls_sequence()
-        start_time = time.time()
+        start_time = time.perf_counter()
         run_info = {}
+        methods_times= {}
         errors = []
         successes = 0
 
@@ -191,8 +190,11 @@ class NodeSequence(object):
         #  send termination sentinel, one for each process
         queue_error.put(None)
         queue_success.put(None)
-        for number in iter(queue_success.get, None):
-            successes += number
+        for method_time in iter(queue_success.get, None):
+            for method_name, time_value in method_time.items():
+                methods_times[method_name] = (
+                    methods_times.get(method_name, 0) + time_value)
+            successes += 1
         for message in iter(queue_error.get, None):
             errors.append(message)
 
@@ -203,9 +205,12 @@ class NodeSequence(object):
         run_info['success'] = run_info.get('success', 0) + successes
         run_info['errors'] = run_info.get('errors', 0) + len(errors)
         run_info['time_limit'] = self.time_limit
-        run_info['time'] = run_info.get('time', 0) + time.time() - start_time
+        run_info['time'] = run_info.get('time', 0) + time.perf_counter() - start_time
         if run_info['time']:
             run_info['TPS'] = float(run_info['success']) / run_info['time']
+            for method_name, time_value in methods_times.items():
+                run_info[method_name] = 100 * time_value / run_info['time']
+#                run_info[method_name] = time_value
         else:
             run_info['TPS'] = 'undefined'
         self.node_rows.append(run_info)
