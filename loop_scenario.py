@@ -336,7 +336,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "-d",   dest='daemon', action='store_true',
-        help="run as daemon and loop scenario execution (optional)"
+        help="run as daemon and loop scenario execution"
     )
     parser.add_argument('filename', help="scenario JSON file")
     args = parser.parse_args()

@@ -17,18 +17,22 @@
 #### Scenario tester
     $ cd bitshares-stress-test
     $ python3 loop_scenario.py loop_scenario.json
+    $ python3 loop_scenario.py -c 6 -r 100 loop_scenario.json
+    $ python3 loop_scenario.py -d loop_scenario.json
 
 ### Usage command line help:
 ```sh
 $ python3 loop_scenario.py -h
-usage: loop_scenario.py [-h] [-d DAEMON] file
+usage: loop_scenario.py [-h] [-r ROUNDS] [-c CONNECTIONS] [-d] filename
 
 positional arguments:
-  file        scenario JSON file
+  filename        scenario JSON file
 
 optional arguments:
-  -h, --help  show this help message and exit
-  -d DAEMON   run as daemon and loop scenario execution
+  -h, --help      show this help message and exit
+  -r ROUNDS       number of scenario execution loops
+  -c CONNECTIONS  number of concurrent connections
+  -d              run as daemon and loop scenario execution
 ```
 
 ### Example scenario script in the JSON format [loop_scenario.json](loop_scenario.json).
