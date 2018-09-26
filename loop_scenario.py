@@ -85,28 +85,29 @@ def make_call(*args: tuple):
     time.sleep(0.5)  # 100ms
     return NodeCall(args[0]).call_wrapper(args[1], args[2], args[3])
 
-def creator(workers: int , data,  queue: Queue):
+def creator(workers: int , data,  queue_calls: Queue):
     """
     Creates data to be consumed and waits for the consumer
     to finish processing
     """
     print('Creating data and putting it on the queue')
     for item in data:
-        queue.put(item)
+        queue_calls.put(item)
     # send termination sentinel, one for each process
     for i in range(workers):
-        queue.put(sentinel)
+        queue_calls.put(sentinel)
     print(f'Creating send termination sentinels, one for each of {workers}'
     ' process and putting it on the queue')
 
 
-def worker(node: str, worker_name: str, queue: Queue, queue_error: Queue, queue_success: Queue):
-    """ Consumes some data from queue and works on it."""
+def worker(node: str, worker_name: str, queue_calls: Queue, queue_error: Queue, queue_success: Queue):
+    """ Consumes some data from queue_calls and works on it."""
     connection = NodeCall(node)
     counter = 0
     start = time.perf_counter()
     print("Started worker {0}!".format(worker_name))
-    for args in iter(queue.get, sentinel):
+    for args in iter(queue_calls.get, sentinel):
+        queue_calls.task_done()
         counter += 1
 #        print("Worker {0} got {1} args.".format(worker_name, args))
         result = connection.call_wrapper(*args)
@@ -118,7 +119,9 @@ def worker(node: str, worker_name: str, queue: Queue, queue_error: Queue, queue_
         start = stop
 
     print("Worker {0} done {1} jobs.".format(worker_name, counter))
-    print(f"{queue.qsize()} the approximate size of the queue.")
+    queue_calls.task_done()
+    print(f"{queue_calls.qsize()} the approximate size of the queue.")
+
 
 
 
@@ -163,29 +166,30 @@ class NodeSequence(object):
         errors = []
         successes = 0
 
-        queue = JoinableQueue()
+        queue_calls = JoinableQueue()
         queue_error = Queue()
         queue_success = Queue()
         processes = []
         process = Process(
-            daemon=True, target=creator,
-            args=(self.workers, self.generate_cycled_call_sequence(), queue)
+            daemon=False, target=creator,
+            args=(self.workers, self.generate_cycled_call_sequence(), queue_calls)
         )
         process.start()
         processes.append(process)
         for index in range(self.workers):
             worker_name = f"worker-{index}"
             process = Process(
-                daemon=True, target=worker,
-                args=(self.node, worker_name, queue, queue_error, queue_success)
+                daemon=False, target=worker,
+                args=(self.node, worker_name, queue_calls, queue_error, queue_success)
             )
             processes.append(process)
             process.start()
 
-        print(f"Before join {queue.qsize()} the approximate size of the queue.")
+        print(f"Before join {queue_calls.qsize()} the approximate size of the queue.")
+        queue_calls.join()
         for process in processes:
             process.join()
-        print(f"After join {queue.qsize()} the approximate size of the queue.")
+        print(f"After join {queue_calls.qsize()} the approximate size of the queue.")
 
         #  send termination sentinel, one for each process
         queue_error.put(None)
