@@ -212,8 +212,9 @@ class NodeSequence(object):
         run_info['time'] = run_info.get('time', 0) + time.perf_counter() - start_time
         if run_info['time']:
             run_info['TPS'] = float(run_info['success']) / run_info['time']
+            sum_calls_time = sum(methods_times.values())
             for method_name, time_value in methods_times.items():
-                run_info[method_name] = 100 * time_value / run_info['time']
+                run_info[method_name] = 100 * time_value / sum_calls_time
 #                run_info[method_name] = time_value
         else:
             run_info['TPS'] = 'undefined'
