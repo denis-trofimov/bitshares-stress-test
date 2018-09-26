@@ -164,7 +164,6 @@ class NodeSequence(object):
             method: str = stage.get("method", '')
             call = getattr(NodeCall, method, lambda: None)
             self.calls_list.append((call, method,  stage.get("params", {})))
-#             self.calls_list.append((self.node, call, method,  stage.get("params", {})))
 
     def generate_cycled_call_sequence(self):
         """Generate cycles of each node_call."""
@@ -194,7 +193,8 @@ class NodeSequence(object):
         processes = []
         process = Process(
             daemon=False, target=creator,
-            args=(self.workers, self.generate_cycled_call_sequence(), queue_calls)
+            args=(
+                self.workers, self.generate_cycled_call_sequence(), queue_calls)
         )
         process.start()
         processes.append(process)
@@ -202,23 +202,30 @@ class NodeSequence(object):
             worker_name = f"worker-{index}"
             process = Process(
                 daemon=False, target=worker,
-                args=(self.node, worker_name, queue_calls, queue_error, queue_success)
+                args=(
+                    self.node, worker_name, queue_calls, queue_error,
+                    queue_success
+                )
             )
             processes.append(process)
             process.start()
 
-        print(f"Before join {queue_calls.qsize()} the approximate size of the queue.")
+        print(f"Before join {queue_calls.qsize()} the approximate size of the "
+        "queue.")
         queue_calls.join()
         print("queue_calls is processed.")
 
-        print(f"After join {queue_calls.qsize()} the approximate size of the queue.")
+        print(f"After join {queue_calls.qsize()} the approximate size of the "
+        "queue.")
 
         # Track time spent on calls, sum up to table
         run_info['node'] = self.node
         run_info['cycles'] = self.cycles
         run_info['workers'] = self.workers
         run_info['time_limit'] = self.time_limit
-        run_info['time'] = run_info.get('time', 0) + time.perf_counter() - start_time
+        run_info['time'] = (
+            run_info.get('time', 0) + time.perf_counter() - start_time
+        )
 
         # send termination sentinel to queue_success
         queue_success.put(None)
@@ -241,7 +248,8 @@ class NodeSequence(object):
         run_info['success'] = run_info.get('success', 0) + successes
         run_info['errors'] = run_info.get('errors', 0) + errors
         if run_info['time']:
-            run_info['TPS'] = float(run_info['success'] + run_info['errors']) / run_info['time']
+            run_info['TPS'] = float(
+                run_info['success'] + run_info['errors']) / run_info['time']
             sum_calls_time = sum(methods_times.values())
             for method_name, time_value in methods_times.items():
                 run_info[method_name] = 100 * time_value / sum_calls_time
@@ -314,8 +322,8 @@ class NodeCall():
                    instance
             :returns: Account data list
             :rtype: list
-            :raises bitshares.exceptions.AccountDoesNotExistsException: if account
-                    does not exist
+            :raises bitshares.exceptions.AccountDoesNotExistsException:
+            if account does not exist
 
         """
         result = []
@@ -349,6 +357,7 @@ if __name__ == "__main__":
         "-d",   dest='daemon', action='store_true',
         help="run as daemon and loop scenario execution"
     )
+    parser.add_argument("-o",   dest='output', help="output CSV file name")
     parser.add_argument('filename', help="scenario JSON file")
     args = parser.parse_args()
 
@@ -364,6 +373,6 @@ if __name__ == "__main__":
     log = logging.getLogger()
 
     Scenario(
-        filename=args.filename,  connections=args.connections, daemon=args.daemon,
-        rounds=args.rounds
+        filename=args.filename,  connections=args.connections,
+        daemon=args.daemon, rounds=args.rounds
     )
