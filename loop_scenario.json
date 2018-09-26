@@ -2,7 +2,7 @@
   "scenarios": [
     {
       "node": "ws://hawking.array.io:8090",
-      "cycles": 1000,
+      "cycles": 2000,
       "workers": 10,
       "time_limit": 20,
       "stages": [
