@@ -12,7 +12,7 @@ import argparse
 import time
 import itertools
 import os
-from multiprocessing import Pool, TimeoutError, Process, Queue, JoinableQueue
+from multiprocessing import TimeoutError, Process, Queue, JoinableQueue, Manager
 from functools import wraps
 from bitshares import BitShares
 from bitshares.block import Block
@@ -165,12 +165,14 @@ class NodeSequence(object):
         start_time = time.perf_counter()
         run_info = {}
         methods_times= {}
-        errors = []
+        error_list = []
         successes = 0
+        errors = 0
 
+        manager = Manager()
         queue_calls = JoinableQueue()
-        queue_error = Queue()
-        queue_success = Queue()
+        queue_error = manager.Queue()
+        queue_success = manager.Queue()
         processes = []
         process = Process(
             daemon=False, target=creator,
@@ -190,32 +192,38 @@ class NodeSequence(object):
         print(f"Before join {queue_calls.qsize()} the approximate size of the queue.")
         queue_calls.join()
         print("queue_calls is processed.")
-        for process in processes:
-            print(f"join {process.name}")
-            process.join(5)
+
         print(f"After join {queue_calls.qsize()} the approximate size of the queue.")
 
-        #  send termination sentinel, one for each process
-        queue_error.put(None)
+        # Track time spent on calls, sum up to table
+        run_info['node'] = self.node
+        run_info['cycles'] = self.cycles
+        run_info['workers'] = self.workers
+        run_info['time_limit'] = self.time_limit
+        run_info['time'] = run_info.get('time', 0) + time.perf_counter() - start_time
+
+        # send termination sentinel to queue_success
         queue_success.put(None)
         for method_time in iter(queue_success.get, None):
             for method_name, time_value in method_time.items():
                 methods_times[method_name] = (
                     methods_times.get(method_name, 0) + time_value)
             successes += 1
+            if not successes % 100:
+                print(f"Count {successes} successes.")
+        # send termination sentinel to queue_error
+        queue_error.put(None)
         for message in iter(queue_error.get, None):
-            errors.append(message)
+            errors += 1
+            if not errors % 100:
+                print(f"Count {errors} errors.")
+            error_list.append(message)
 
         # Track time spent on calls, sum up to table
-        run_info['node'] = self.node
-        run_info['cycles'] = self.cycles
-        run_info['workers'] = self.workers
         run_info['success'] = run_info.get('success', 0) + successes
-        run_info['errors'] = run_info.get('errors', 0) + len(errors)
-        run_info['time_limit'] = self.time_limit
-        run_info['time'] = run_info.get('time', 0) + time.perf_counter() - start_time
+        run_info['errors'] = run_info.get('errors', 0) + errors
         if run_info['time']:
-            run_info['TPS'] = float(run_info['success']) / run_info['time']
+            run_info['TPS'] = float(run_info['success'] + run_info['errors']) / run_info['time']
             sum_calls_time = sum(methods_times.values())
             for method_name, time_value in methods_times.items():
                 run_info[method_name] = 100 * time_value / sum_calls_time
@@ -224,51 +232,14 @@ class NodeSequence(object):
             run_info['TPS'] = 'undefined'
         self.node_rows.append(run_info)
 
-        log.error(json.dumps(errors,  indent=(2 * ' ')))
+        log.error(json.dumps(error_list,  indent=(2 * ' ')))
 
-    def run(self):
-        """ Prepare and run loop for single node in scenarios."""
-        self.prepare_calls_sequence()
-        start_time = time.time()
-        run_info = {}
-        success = []
-        errors = []
-        successes = 0
-        with Pool(processes=self.workers) as pool:
-            """ starmap_async(func, iterable[, chunksize[, callback[,
-                error_callback]]])
-                A combination of starmap() and map_async() that iterates over
-                iterable of iterables and calls func with the iterables unpacked.
-                Returns a result object.
-                """
-            multiple_results = pool.starmap_async(
-                make_call, self.generate_cycled_call_sequence(),  self.workers,
-                success.append, errors.append)
-
-            for result in multiple_results.get(timeout=2):
-#                log.info(json.dumps(result,  indent=(2 * ' ')))
-
-                message = result.get('error', '')
-                if message:
-                    errors.append(result)
-                else:
-                    successes += 1
-
-            # Track time spent on calls, sum up to table
-            run_info['node'] = self.node
-            run_info['cycles'] = self.cycles
-            run_info['workers'] = self.workers
-            run_info['success'] = run_info.get('success', 0) + successes
-            run_info['errors'] = run_info.get('errors', 0) + len(errors)
-            run_info['time_limit'] = self.time_limit
-            run_info['time'] = run_info.get('time', 0) + time.time() - start_time
-            if run_info['time']:
-                run_info['TPS'] = float(run_info['success']) / run_info['time']
-            else:
-                run_info['TPS'] = 'undefined'
-            self.node_rows.append(run_info)
-
-            log.error(json.dumps(errors,  indent=(2 * ' ')))
+        for process in processes:
+            print(f"join {process.name}")
+            process.join(5)
+            if process.exitcode is None:
+                print(f"terminate {process.name}")
+                process.terminate()
 
 
 class NodeCall():
