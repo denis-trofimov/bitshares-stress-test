@@ -55,7 +55,12 @@ class Scenario(object):
                writer.writeheader()
            writer.writerows(self.node_rows)
 
-    def __init__(self, script_name: str ="scenario.json"):
+    def __init__(self, **kwargs):
+        script_name = kwargs['filename']
+#        global_connections = kwargs['connections']
+#        global_rounds = kwargs['rounds']
+#        global_daemon = kwargs['daemon']
+
         self.node_rows: list = []
 
         try:
@@ -134,8 +139,8 @@ class NodeSequence(object):
     def __init__(self, scenario: dict, node_rows: list):
         self.scenario: dict = scenario
         self.node = self.scenario.get("node")
-        self.cycles: int = self.scenario.get("cycles",  1)
-        self.workers: int = self.scenario.get("workers",  1)
+        self.cycles: int = self.scenario.get("cycles", global_rounds)
+        self.workers: int = self.scenario.get("workers",  global_connections)
         self.time_limit: int = self.scenario.get("time_limit",  20)
         self.node_rows = node_rows
 
@@ -318,12 +323,27 @@ class NodeCall():
 
 
 if __name__ == "__main__":
+    #python args.py -c 2 -r 10  a.a
+    #Namespace(connections=2, daemon=False, file='a.a', rounds=10)
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-d",   dest='daemon', help="run as daemon and loop scenario execution"
+        "-r", type=int, default=1, dest='rounds',
+        help="number of scenario execution loops"
     )
-    parser.add_argument('file', help="scenario JSON file")
+    parser.add_argument(
+        "-c", type=int, default=1, dest='connections',
+        help="number of concurrent connections"
+    )
+    parser.add_argument(
+        "-d",   dest='daemon', action='store_true',
+        help="run as daemon and loop scenario execution (optional)"
+    )
+    parser.add_argument('filename', help="scenario JSON file")
     args = parser.parse_args()
+
+    global_connections=args.connections
+    global_daemon=args.daemon
+    global_rounds=args.rounds
 
     logging.basicConfig(
         format='%(created)f - %(levelname)s - %(funcName)s - %(message)s',
@@ -332,4 +352,7 @@ if __name__ == "__main__":
     )
     log = logging.getLogger()
 
-    Scenario(args.file)
+    Scenario(
+        filename=args.filename,  connections=args.connections, daemon=args.daemon,
+        rounds=args.rounds
+    )
