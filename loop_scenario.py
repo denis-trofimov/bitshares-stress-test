@@ -98,6 +98,11 @@ def creator(workers: int , data,  queue_calls: Queue):
     print('Creating data and putting it on the queue')
     for item in data:
         queue_calls.put(item)
+        # Prevent queue flood memory.
+        if global_daemon and queue_calls.qsize() > 1000:
+            # Block until all items in the queue have been gotten and processed.
+            print("Wait till queue_calls.qsize() < 1000")
+            time.sleep(1)
     # send termination sentinel, one for each process
     for i in range(workers):
         queue_calls.put(sentinel)
@@ -105,7 +110,10 @@ def creator(workers: int , data,  queue_calls: Queue):
     ' process and putting it on the queue')
 
 
-def worker(node: str, worker_name: str, queue_calls: Queue, queue_error: Queue, queue_success: Queue):
+def worker(
+    node: str, worker_name: str, queue_calls: JoinableQueue,
+    queue_error: Queue, queue_success: Queue
+):
     """ Consumes some data from queue_calls and works on it."""
     connection = NodeCall(node)
     counter = 0
@@ -160,9 +168,14 @@ class NodeSequence(object):
 
     def generate_cycled_call_sequence(self):
         """Generate cycles of each node_call."""
-        for iteration in range(self.cycles):
-            for call in self.calls_list:
-                yield call
+        if global_daemon:
+            while True:
+                for call in self.calls_list:
+                    yield call
+        else:
+            for iteration in range(self.cycles):
+                for call in self.calls_list:
+                    yield call
 
     def run_workers(self):
         """ Prepare and run loop for single node in scenarios."""
@@ -323,8 +336,6 @@ class NodeCall():
 
 
 if __name__ == "__main__":
-    #python args.py -c 2 -r 10  a.a
-    #Namespace(connections=2, daemon=False, file='a.a', rounds=10)
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-r", type=int, default=1, dest='rounds',
