@@ -109,6 +109,8 @@ def worker(node: str, worker_name: str, queue_calls: Queue, queue_error: Queue, 
     for args in iter(queue_calls.get, sentinel):
         queue_calls.task_done()
         counter += 1
+        if not counter % 100:
+            print(f"Worker {worker_name} done {counter} jobs.")
 #        print("Worker {0} got {1} args.".format(worker_name, args))
         result = connection.call_wrapper(*args)
         stop = time.perf_counter()
@@ -118,7 +120,7 @@ def worker(node: str, worker_name: str, queue_calls: Queue, queue_error: Queue, 
             queue_success.put({args[1]: stop - start})
         start = stop
 
-    print("Worker {0} done {1} jobs.".format(worker_name, counter))
+    print(f"Worker {worker_name} done {counter} jobs.")
     queue_calls.task_done()
     print(f"{queue_calls.qsize()} the approximate size of the queue.")
 
@@ -187,8 +189,10 @@ class NodeSequence(object):
 
         print(f"Before join {queue_calls.qsize()} the approximate size of the queue.")
         queue_calls.join()
+        print("queue_calls is processed.")
         for process in processes:
-            process.join()
+            print(f"join {process.name}")
+            process.join(5)
         print(f"After join {queue_calls.qsize()} the approximate size of the queue.")
 
         #  send termination sentinel, one for each process
