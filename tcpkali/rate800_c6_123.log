@@ -1,0 +1,88 @@
+Destination: [104.155.104.137]:8090
+Interface enp0s31f6 address [192.168.0.212]:0
+Using interface enp0s31f6 to connect to [104.155.104.137]:8090
+Connection [192.168.0.212]:49727 -> [104.155.104.137]:8090 opened as 27
+Connection [192.168.0.212]:60623 -> [104.155.104.137]:8090 opened as 28
+Connection [192.168.0.212]:40305 -> [104.155.104.137]:8090 opened as 29
+Connection [192.168.0.212]:33151 -> [104.155.104.137]:8090 opened as 30
+Connection [192.168.0.212]:55359 -> [104.155.104.137]:8090 opened as 31
+Connection [192.168.0.212]:48641 -> [104.155.104.137]:8090 opened as 32
+Ramped up to 6 connections.
+Exiting worker 0
+  0↓, 0↑ open connections (0 connecting)
+  1 connections_counter 
+  ↳ 1 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  3267362 worker_data_sent
+  22751794 worker_data_rcvd
+  47244 worker_num_writes
+  14722 worker_num_reads
+Last received bytes (401): [\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000006571313b39d63bbe98d916ea14276c317","timestamp":"2018-09-27T15:20:30","witness":"1.5.8","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f0cdf51e2752a84ee9b7a26dcf19250fd866716f4a588a7cc969e1c0be5d2a3895d1f4fedb34ebcf1fb2d8ec5cfbbea5b9f15bb463133ee26c8a4770ec45b48b8","transactions":[]}}]
+Exiting worker 4
+  0↓, 0↑ open connections (0 connecting)
+  1 connections_counter 
+  ↳ 1 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  3169142 worker_data_sent
+  21890306 worker_data_rcvd
+  47193 worker_num_writes
+  14429 worker_num_reads
+Last received bytes (401): [\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000013fad03c8db6d7af2f4414167935ea29eed","timestamp":"2018-09-27T15:47:05","witness":"1.5.5","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f58248f51a7d73496e4f0dc4d2b5695fd5178658782bb54eaa15a8ae52b41a09d67ba5bb03f36d4b7e8819bbde43d486a5f7acb5d3f76737826b19922123b96a0","transactions":[]}}]
+Exiting worker 1
+  0↓, 0↑ open connections (0 connecting)
+  1 connections_counter 
+  ↳ 1 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  3218770 worker_data_sent
+  22186091 worker_data_rcvd
+  47289 worker_num_writes
+  14495 worker_num_reads
+Last received bytes (1604): ...["2018-09-27T16:16:05","witness":"1.5.5","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f24b107ed0cc78183bdd444d86c4c90ecfcf046fbe472ae4eacea1aced57c1cc923926dc61480619bc2913cd3dc838a04d042c2d8dc3deb89716dcc52fd69c282","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000002575f9298eea89b9ed2d16f822b2ca00fd","timestamp":"2018-09-27T15:23:05","witness":"1.5.7","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f69d71b57f4229756577ca80d8c6d44da9609e51e8f33afc2535a3c2b3abe02f9348dffc5239152e45473f747a99b1ce4c61e606a22a4784e1a619b9348264988","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000004207a7131b4cd76b258d41c27e1a1fab84","timestamp":"2018-09-27T15:25:30","witness":"1.5.1","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"20107c66eb982050489c14f1081763202f98ec405a292bd37f6d110c65159fee4142d232fcf07b84d9016b56951ef9f5588ad9fcb4d13883ab388e05c8079fd803","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000000d587e2ea7084886c9e1441208465aa9969","timestamp":"2018-09-27T15:38:00","witness":"1.5.8","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"2071530411e672faf80c9cab1b87c484d96ed244e4164a7a609625ed8c02a9bc773d0ccc8c0f180e34957843218bb5579898b36fbf7dfaab2b507b2ae482479179","transactions":[]}}]
+Exiting worker 3
+  0↓, 0↑ open connections (0 connecting)
+  1 connections_counter 
+  ↳ 1 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  3265734 worker_data_sent
+  22674425 worker_data_rcvd
+  47312 worker_num_writes
+  15009 worker_num_reads
+Last received bytes (1496): [8-09-27T15:27:30","witness":"1.5.5","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"2035fdb88cf84fe7afbe7e9a92371fe942dd89d0ffc944e3bde4151019812fa84d1e4f9ba316ef88609167ff9077af750cea3bce1ca99715c8962b759bfd5054e4","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000040fa293fcb2d65896a55e2b9229425155d","timestamp":"2018-09-27T15:25:20","witness":"1.5.4","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f3ed7c33a1f6c852e521b9d016a680b09a2d9306a482b4a66962d8c6df158175d28f9777f19a314fad499fb781f301d57be00b78c746bc115e455ce595b4b68de","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000039dd75f772e303acc5123ec71626b276fd1","timestamp":"2018-09-27T16:38:50","witness":"1.5.9","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f06fe5d9e9a2661b087da21cdb057e193f5b471c83b2c8e208c607c4e75f7025d6374499728f78743e47b5485bfde3f264de422024435f4e311b613a86dfc9282","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000000270cc7e8eacd818e0eeeef71a61fc380ed","timestamp":"2018-09-27T15:23:15","witness":"1.5.5","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f40665ee66eb0bd3124c1b65f95e17e71359de5e2943b95f08e7dc096775b330765164bc83195a164fa34c1fe7110be777f7f8061b6232fb25c86b479e0b5a546","transactions":[]}}]
+Exiting worker 5
+  0↓, 0↑ open connections (0 connecting)
+  1 connections_counter 
+  ↳ 1 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  3216637 worker_data_sent
+  22291159 worker_data_rcvd
+  47124 worker_num_writes
+  14618 worker_num_reads
+Last received bytes (2305): ...["2018-09-27T16:40:40","witness":"1.5.1","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f424a62ac271461871daf1a5a4dd5feb766dae0ec8551802c0005099de57ca15a30c78e21bc896f1a61d7a42ab318eee2df74ad65e827ebd54e15f65242f31ada","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000013fad03c8db6d7af2f4414167935ea29eed","timestamp":"2018-09-27T15:47:05","witness":"1.5.5","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f58248f51a7d73496e4f0dc4d2b5695fd5178658782bb54eaa15a8ae52b41a09d67ba5bb03f36d4b7e8819bbde43d486a5f7acb5d3f76737826b19922123b96a0","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000022ba4fec6486943cde319ae5c198bbdfd8d","timestamp":"2018-09-27T16:07:15","witness":"1.5.1","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"20615f5442be7562460ff1e0fd3d595838b0f070a02c8b2757190c1c1ba5ddce0f71137a6e681771b88ea7bbca0a8e2ebcf0d875e1acab606068c9fdac55979d07","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000004f00b19e3c1516d760f9e8f43310aa085c","timestamp":"2018-09-27T15:26:35","witness":"1.5.8","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f50c17a533666081d9232a4763bed43b9ef1483c2e2c7ffa3d6531b8bb492e3b6516f4d52ebad1496ab9efb3101d1222860e57f5795fe1c7d99e50e485a19b04f","transactions":[]}}]
+Exiting worker 2
+  0↓, 0↑ open connections (0 connecting)
+  1 connections_counter 
+  ↳ 1 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  3218213 worker_data_sent
+  22267891 worker_data_rcvd
+  47266 worker_num_writes
+  14482 worker_num_reads
+Last received bytes (700): [":"2018-09-27T15:23:00","witness":"1.5.3","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"203d333b140d192ba027e42d9532f69bfb2bc59ddbe68fafc389c2ab016a8c8bdd2731385428ab38b24c11833e6add570120792b4969dcc5bb3c542d1ac066c0db","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000003aa0a750a876b8899d4314a1561f557c3","timestamp":"2018-09-27T15:19:55","witness":"1.5.4","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f0f29e6054910b9b16bd2c0d7f559a0a39fa053b9224aea53ba99451b71b6398c603fd1c973049b1046feaaed8963ee4849d3f8fed13ef85892083de3894344ac","transactions":[]}}]
+Total data sent:     18.5 MiB (19355858 bytes)
+Total data received: 127.9 MiB (134061666 bytes)
+Bandwidth per channel: 3.409⇅ Mbps (426.1 kBps)
+Aggregate bandwidth: 17.874↓, 2.581↑ Mbps
+Packet rate estimate: 2925.0↓, 4723.5↑ (2↓, 1↑ TCP MSS/op)
+Test duration: 60.0037 s.
