@@ -1,0 +1,57 @@
+denis@denis-Z370-HD3P:~/p/bitshares-stress-test$ tcpkali -d -T 1 -vvv -c1 -r10 --ws \
+> -1 '{"method": "call", "params": [1, "database", []], "id": 3}' \
+>  -m '{"method": "call", "params": [2, "get_block", [\{re [0-9]{1,4}}]], "id": 7}' \
+>  hawking.array.io:8090
+WARNING: Dumb terminal, expect unglorified output.
+Destination: [104.155.104.137]:8090
+Interface enp0s31f6 address [192.168.0.212]:0
+Using interface enp0s31f6 to connect to [104.155.104.137]:8090
+Connection [192.168.0.212]:45891 -> [104.155.104.137]:8090 opened as 12
+Ramped up to 1 connections.
+Snd(12, 160): [GET / HTTP/1.1\r\n
+	Host: hawking.array.io:8090\r\n
+	Upgrade: websocket\r\n
+	Connection: Upgrade\r\n
+	Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==\r\n
+	Sec-WebSocket-Version: 13\r\n
+	\r\n]
+Rcv(12, 160): [HTTP/1.1 101 Switching Protocols\r\n
+	Connection: upgrade\r\n
+	Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=\r\n
+	Server: WebSocket++/0.8.0-dev\r\n
+	Upgrade: websocket\r\n
+	\r\n]
+Snd(12, 64): [\201\272\000\000\000\000{"method": "call", "params": [1, "database", []], "id": 3}]
+Rcv(12, 37): [\201#{"id":3,"jsonrpc":"2.0","result":2}]
+Snd(12, 69): [\201\277\000\000\000\000{"method": "call", "params": [2, "get_block", [1473]], "id": 7}]
+Rcv(12, 401): [\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000005c013b145dda4e4aaa7fad2cd756aeec195","timestamp":"2018-09-27T17:25:40","witness":"1.5.9","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f551e938ec4bc0300ada1cbf173ec46c2343800e0bcd3dffb64dc649f3cca0894273b429c7f710b9e377fdf2eac10afbe960e1e7d26005c9633f2e0e56dd4a328","transactions":[]}}]
+Snd(12, 69): [\201\277\000\000\000\000{"method": "call", "params": [2, "get_block", [8751]], "id": 7}]
+Rcv(12, 401): [\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000222e566d0e5f65b41192c78195598bd8145a","timestamp":"2018-09-28T03:47:40","witness":"1.5.8","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f57719a879fde0e6ad4ec77e2e6cff669260b9f66d491d312f102067bd03a455b54935e8fe9803c9fa1dadefde9056e5bfbfe5bbc5c62b6c26c49acef03ec15b9","transactions":[]}}]
+Snd(12, 69): [\201\275\000\000\000\000{"method": "call", "params": [2, "get_block", [72]], "id": 7}\201\277]
+Rcv(12, 402): [\201~\001\216{"id":7,"jsonrpc":"2.0","result":{"previous":"00000047a2f3045b3a4d827bba4a1c6849d433de","timestamp":"2018-09-27T15:25:55","witness":"1.5.11","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"205dda1bb3de535c2234258ea51f7102d5ca6b93ae478fc0346bb881ff07da57b4443e06a0a4e7a26619e0318d5aaab0e716da09695b19a15342a3a5ddcedc2ee6","transactions":[]}}]
+Snd(12, 69): [\000\000\000\000{"method": "call", "params": [2, "get_block", [7441]], "id": 7}\201\275]
+Rcv(12, 401): [\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00001d100ae51ca330be7c767792d1b71ad88647","timestamp":"2018-09-28T01:55:45","witness":"1.5.5","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f72b70f61efb28d25d674e8389787fbe8345499c48074360750c15d9e5ebd209862fdc9563615c6d4820ae812f862f36666e60d2e77bc5723eff36ee78e60abb6","transactions":[]}}]
+Snd(12, 69): [\000\000\000\000{"method": "call", "params": [2, "get_block", [33]], "id": 7}\201\276\000\000]
+Rcv(12, 402): [\201~\001\216{"id":7,"jsonrpc":"2.0","result":{"previous":"00000020e063e06240e6bddce9c14e4219168bee","timestamp":"2018-09-27T15:22:40","witness":"1.5.11","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f3e59e9ac7d417bf3aac2f747d7d5344afca9a286df2686b29f07945667a7bf2f23d1bc280d6a35092d535cfcc3d92c9384bfaf212e2245c35448e5b6156886ec","transactions":[]}}]
+Snd(12, 69): [\000\000{"method": "call", "params": [2, "get_block", [215]], "id": 7}\201\276\000\000\000]
+Rcv(12, 401): [\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000000d611af223ebb5eb5482617775160ed8c49","timestamp":"2018-09-27T15:38:05","witness":"1.5.1","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f12c31e20823b97fc754356df0f202cde46da36b5d5da735206d4b7588ab71cec1a86cc274acb31b889957afd308e08f7b91d0af7efb4744f8fa1253d27c4352b","transactions":[]}}]
+Snd(12, 69): [\000{"method": "call", "params": [2, "get_block", [060]], "id": 7}\201\275\000\000\000\000]
+Rcv(12, 401): [\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000003be0b2790b67a9a0b9c25e0eeff4b98b3e","timestamp":"2018-09-27T15:24:55","witness":"1.5.1","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"20295d74cf8bc46860ecd4dbc5cd6160c0a775c719aa8679eb86f303550acee9826b411ff75b744e7cd62003e4f99004283083e84f1c26d19138a667ad59b7d42c","transactions":[]}}]
+Exiting worker 0
+  0↓, 0↑ open connections (0 connecting)
+  1 connections_counter
+  ↳ 1 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  707 worker_data_sent
+  3006 worker_data_rcvd
+  9 worker_num_writes
+  9 worker_num_reads
+Last received bytes (401): [\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000003be0b2790b67a9a0b9c25e0eeff4b98b3e","timestamp":"2018-09-27T15:24:55","witness":"1.5.1","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"20295d74cf8bc46860ecd4dbc5cd6160c0a775c719aa8679eb86f303550acee9826b411ff75b744e7cd62003e4f99004283083e84f1c26d19138a667ad59b7d42c","transactions":[]}}]
+Total data sent:     707 bytes (707 bytes)
+Total data received: 2.9 KiB (3006 bytes)
+Bandwidth per channel: 0.030⇅ Mbps (3.7 kBps)
+Aggregate bandwidth: 0.024↓, 0.006↑ Mbps
+Packet rate estimate: 9.0↓, 9.0↑ (1↓, 1↑ TCP MSS/op)
+Test duration: 1.00118 s.
