@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash #lends you some flexibility on different systems
 $ wsstat -n 10 ws://hawking.array.io:8090
 $ wsstat -n 10 -H '{"method": "call", "params": [1, "login", ["", ""]], "id": 2}' ws://hawking.array.io:8090
 Traceback (most recent call last):

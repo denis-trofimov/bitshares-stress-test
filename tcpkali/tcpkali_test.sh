@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash #lends you some flexibility on different systems
 tcpkali -T 1 -vvv -c1 --channel-lifetime=0.1 -r1 --ws -m '{"method": "call", "params": [1, "login", ["", ""]], "id": 2}' hawking.array.io:8090
 tcpkali -vvv -r1 --ws -m '{"method": "call", "params": [1, "login", ["", ""]], "id": 2}' -m '{"method": "call", "params": [1, "database", []], "id": 3}' -m '{"method": "call", "params": [2, "get_objects", [["2.1.0"]]], "id": 7}' hawking.array.io:8090
 tcpkali -vvv -r1 --ws -m '{"method": "call", "params": [1, "login", ["", ""]], "id": 2}' -m '{"method": "call", "params": [1, "database", []], "id": 3}' -m '{"method": "call", "params": [2, "get_block", [\{connection.uid}]], "id": 7}' hawking.array.io:8090
