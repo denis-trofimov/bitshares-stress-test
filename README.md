@@ -1,4 +1,4 @@
-# Scenario tester, stress test tool for BitShares based on JSON and pybitshares.
+# Scenario tester, stress test tool for BitShares based on python-bitshares.
 
 ---
 
@@ -41,3 +41,10 @@ optional arguments:
 
 A copy of the license is available in the repository's
 [LICENSE](LICENSE) file.
+
+---
+
+# Recent activity
+
+* [Report](report.md) on tcpkali test usage concerning [Test connection limit to "ws://hawking.array.io:8090" not using python websocket libs. #19](https://github.com/denis-trofimov/bitshares-stress-test/issues/19)
+* Achived up to 2888 TPS on get random block operation.
