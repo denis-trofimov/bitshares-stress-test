@@ -1,0 +1,58 @@
+Destination: [104.155.104.137]:8090
+Interface enp2s0 address [192.168.1.67]:0
+Using interface enp2s0 to connect to [104.155.104.137]:8090
+Connection [192.168.1.67]:50703 -> [104.155.104.137]:8090 opened as 15
+Connection [192.168.1.67]:36793 -> [104.155.104.137]:8090 opened as 16
+Connection [192.168.1.67]:46417 -> [104.155.104.137]:8090 opened as 17
+Connection [192.168.1.67]:45313 -> [104.155.104.137]:8090 opened as 18
+Connection [192.168.1.67]:52771 -> [104.155.104.137]:8090 opened as 19
+Connection [192.168.1.67]:55525 -> [104.155.104.137]:8090 opened as 20
+Connection [192.168.1.67]:38121 -> [104.155.104.137]:8090 opened as 21
+Connection [192.168.1.67]:47405 -> [104.155.104.137]:8090 opened as 22
+Connection [192.168.1.67]:53035 -> [104.155.104.137]:8090 opened as 23
+Connection [192.168.1.67]:40435 -> [104.155.104.137]:8090 opened as 24
+Connection [192.168.1.67]:37903 -> [104.155.104.137]:8090 opened as 25
+Connection [192.168.1.67]:43021 -> [104.155.104.137]:8090 opened as 26
+Connection [192.168.1.67]:57559 -> [104.155.104.137]:8090 opened as 27
+Connection [192.168.1.67]:52973 -> [104.155.104.137]:8090 opened as 28
+Connection [192.168.1.67]:45531 -> [104.155.104.137]:8090 opened as 29
+Connection [192.168.1.67]:49197 -> [104.155.104.137]:8090 opened as 30
+Connection [192.168.1.67]:43077 -> [104.155.104.137]:8090 opened as 31
+Connection [192.168.1.67]:37157 -> [104.155.104.137]:8090 opened as 32
+Connection [192.168.1.67]:39261 -> [104.155.104.137]:8090 opened as 33
+Connection [192.168.1.67]:34267 -> [104.155.104.137]:8090 opened as 34
+Connection [192.168.1.67]:36419 -> [104.155.104.137]:8090 opened as 35
+Connection [192.168.1.67]:55353 -> [104.155.104.137]:8090 opened as 36
+Connection [192.168.1.67]:40803 -> [104.155.104.137]:8090 opened as 37
+Connection [192.168.1.67]:37819 -> [104.155.104.137]:8090 opened as 38
+Ramped up to 24 connections.
+Exiting worker 0
+  0↓, 0↑ open connections (0 connecting)
+  12 connections_counter 
+  ↳ 12 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  14940377 worker_data_sent
+  2617188 worker_data_rcvd
+  107456 worker_num_writes
+  722 worker_num_reads
+Last received bytes (3208): ...["2018-09-27T16:25:20","witness":"1.5.5","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"20106eb4abe3d86d7e4ddfc193d9319037167de9037da48e33ee6be05fde71b658119c3237400ce62ff07565d91294624b131b524aaf862e273479a96f7502daa3","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000022d1ad785c95f723622518c05682ded7a30","timestamp":"2018-09-27T16:07:25","witness":"1.5.9","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"201a7fb79afa38a1c344f47590e88802b60971800c8e9fcb6ab323209cee26bcb40fdca4460059eccf5db27b24877f8a2539cd92fd688004ada35a5faa1901ddd7","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000001d581335146aa31f981f85ba30d9aabb3a7","timestamp":"2018-09-27T15:59:50","witness":"1.5.9","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"201b4e8d47f6f9e52667320bef1e9bc7da2c6e3d68fa04a7f7644eb4fcf9c920e61b983ca5bdc031e63372f24390c7ceb9d04aede986898347eae81afb4964fde3","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000003314308cc4e9a2676f5d6cbf22e27f0c113","timestamp":"2018-09-27T16:29:35","witness":"1.5.7","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f49acbd96330a4dacfbae9940f555ee5dd04b4f9f168900d23f56310d2d7f0af9588bf9aeec173cdfe2dd9e81a700b3398549f92db50e25e2593f580f77321383","transactions":[]}}]
+Exiting worker 1
+  0↓, 0↑ open connections (0 connecting)
+  12 connections_counter 
+  ↳ 12 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  16115411 worker_data_sent
+  2935415 worker_data_rcvd
+  118400 worker_num_writes
+  810 worker_num_reads
+Last received bytes (3209): ...[2018-09-27T15:46:25","witness":"1.5.2","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"2009ee76a7f3b97e969cc9c3d42f3f26bee9f3c5d00a7ffebc4760e8b79dcca8942c2f22eaab135f5272d5651cc9a11d78303de7c9b1493555015971aaaa00de0a","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000003b34b9ca933f86a98b8bda36b884bc2fe2c","timestamp":"2018-09-27T16:40:55","witness":"1.5.2","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"20068c31e8c3625e60555d647bcb5102b61a69230e1137d687083ff7e836337f0b62697fb96c4335c1b73fbdd80307e02e629e98270b716a6b7fc535975250f42c","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000015d157090bd6a36189617eb5695757f7ca5","timestamp":"2018-09-27T15:49:35","witness":"1.5.8","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f4b9eddcac255c668d252902a42125b5946f038b4374d2dde0161542323cc789c7f80b048e79c26b9550328fbb2eea62960281f0f0731e17aa5bb0ad3797b0b54","transactions":[]}}\201~\001\216{"id":7,"jsonrpc":"2.0","result":{"previous":"000000be0bab1b4a820aedf895597d0d78728b26","timestamp":"2018-09-27T15:36:05","witness":"1.5.10","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f63c79b9644e51f5eba253fcd6cf34edd70e37f8e3881c5d56b527310bee422823ab7934b4ecabba2a34e216799f1c132fd38ed4586617a7ad658cb08c66709b6","transactions":[]}}]
+Total data sent:     29.6 MiB (30989626 bytes)
+Total data received: 5.2 MiB (5415094 bytes)
+Bandwidth per channel: 0.202⇅ Mbps (25.3 kBps)
+Aggregate bandwidth: 0.722↓, 4.132↑ Mbps
+Packet rate estimate: 74.0↓, 3756.1↑ (3↓, 1↑ TCP MSS/op)
+Test duration: 60.002 s.

@@ -1,0 +1,46 @@
+Destination: [104.155.104.137]:8090
+Interface enp2s0 address [192.168.1.67]:0
+Using interface enp2s0 to connect to [104.155.104.137]:8090
+Connection [192.168.1.67]:53277 -> [104.155.104.137]:8090 opened as 15
+Connection [192.168.1.67]:50207 -> [104.155.104.137]:8090 opened as 16
+Connection [192.168.1.67]:42147 -> [104.155.104.137]:8090 opened as 17
+Connection [192.168.1.67]:46957 -> [104.155.104.137]:8090 opened as 18
+Connection [192.168.1.67]:37393 -> [104.155.104.137]:8090 opened as 19
+Connection [192.168.1.67]:46389 -> [104.155.104.137]:8090 opened as 20
+Connection [192.168.1.67]:58793 -> [104.155.104.137]:8090 opened as 21
+Connection [192.168.1.67]:47947 -> [104.155.104.137]:8090 opened as 22
+Connection [192.168.1.67]:37365 -> [104.155.104.137]:8090 opened as 23
+Connection [192.168.1.67]:36785 -> [104.155.104.137]:8090 opened as 24
+Connection [192.168.1.67]:39053 -> [104.155.104.137]:8090 opened as 25
+Connection [192.168.1.67]:55949 -> [104.155.104.137]:8090 opened as 26
+Ramped up to 12 connections.
+Exiting worker 1
+  0↓, 0↑ open connections (0 connecting)
+  6 connections_counter 
+  ↳ 6 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  9634472 worker_data_sent
+  66827702 worker_data_rcvd
+  143009 worker_num_writes
+  18314 worker_num_reads
+Last received bytes (3878): ...[2018-09-27T16:34:55","witness":"1.5.10","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f58edc85f3e3f73f132637f6334f50814ea380b2aab6b57e44267279d47c4c7561f7c155880a02e52f672a3970c09552e706aa9621a085d4a2ac2a3cba98d53cf","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000003aa0a750a876b8899d4314a1561f557c3","timestamp":"2018-09-27T15:19:55","witness":"1.5.4","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f0f29e6054910b9b16bd2c0d7f559a0a39fa053b9224aea53ba99451b71b6398c603fd1c973049b1046feaaed8963ee4849d3f8fed13ef85892083de3894344ac","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000000000000000000000000000000000000000","timestamp":"2018-09-27T15:19:25","witness":"1.5.1","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f3b6a36a4c079d57e08b9267e9e2c1c7be238f0f00b4223b0ed605d77901493ee6b1da80dec54e70d7381a884ef5f58ffaee3dd65ae3d3dc7e7ba697d9e9b591b","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000001b7c01fad07f2a7350e2253aa884be9b587","timestamp":"2018-09-27T15:57:20","witness":"1.5.8","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"203f30af0f4920f1f0790bd6d549d68d01d093897eb7029a0b2938c02202b615c4615898f9a122697c35bc194d5d40f9654afb51a58fb7da93cb2a25a4334d1a4e","transactions":[]}}]
+Exiting worker 0
+  0↓, 0↑ open connections (0 connecting)
+  6 connections_counter 
+  ↳ 6 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  9684153 worker_data_sent
+  67089897 worker_data_rcvd
+  142993 worker_num_writes
+  18726 worker_num_reads
+Last received bytes (401): [\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000002c90a1dc3fc687f68c81ef3f0b01021c695","timestamp":"2018-09-27T16:20:55","witness":"1.5.2","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f4c13ada5e42074d5d977bd136759a78fa446b2de9636826360fb0e930652b9981f24d3495d2076446aa945f117ee6ca16d7b16f91e6de9b518a548b4370d057b","transactions":[]}}]
+Total data sent:     18.4 MiB (19311950 bytes)
+Total data received: 127.7 MiB (133917279 bytes)
+Bandwidth per channel: 1.702⇅ Mbps (212.8 kBps)
+Aggregate bandwidth: 17.853↓, 2.575↑ Mbps
+Packet rate estimate: 1851.7↓, 4765.7↑ (3↓, 1↑ TCP MSS/op)
+Test duration: 60.0075 s.

@@ -1,0 +1,92 @@
+Destination: [35.233.124.27]:8090
+Interface enp2s0 address [192.168.1.67]:0
+Using interface enp2s0 to connect to [35.233.124.27]:8090
+Initialized HdrHistogram with size 90216
+Initialized HdrHistogram with size 90216
+Connection [192.168.1.67]:38283 -> [35.233.124.27]:8090 opened as 15
+Connection [192.168.1.67]:56151 -> [35.233.124.27]:8090 opened as 16
+Connection [192.168.1.67]:49991 -> [35.233.124.27]:8090 opened as 17
+Connection [192.168.1.67]:36227 -> [35.233.124.27]:8090 opened as 18
+Connection [192.168.1.67]:55121 -> [35.233.124.27]:8090 opened as 19
+Connection [192.168.1.67]:50513 -> [35.233.124.27]:8090 opened as 20
+Connection [192.168.1.67]:38445 -> [35.233.124.27]:8090 opened as 21
+Connection [192.168.1.67]:52765 -> [35.233.124.27]:8090 opened as 22
+Connection [192.168.1.67]:48563 -> [35.233.124.27]:8090 opened as 23
+Connection [192.168.1.67]:59963 -> [35.233.124.27]:8090 opened as 24
+Connection [192.168.1.67]:41919 -> [35.233.124.27]:8090 opened as 25
+Connection [192.168.1.67]:36797 -> [35.233.124.27]:8090 opened as 26
+Connection [192.168.1.67]:45419 -> [35.233.124.27]:8090 opened as 27
+Connection [192.168.1.67]:57609 -> [35.233.124.27]:8090 opened as 28
+Connection [192.168.1.67]:40103 -> [35.233.124.27]:8090 opened as 29
+Connection [192.168.1.67]:57761 -> [35.233.124.27]:8090 opened as 30
+Connection [192.168.1.67]:37829 -> [35.233.124.27]:8090 opened as 31
+Connection [192.168.1.67]:46279 -> [35.233.124.27]:8090 opened as 32
+Connection [192.168.1.67]:37515 -> [35.233.124.27]:8090 opened as 33
+Connection [192.168.1.67]:45833 -> [35.233.124.27]:8090 opened as 34
+Connection [192.168.1.67]:41627 -> [35.233.124.27]:8090 opened as 35
+Connection [192.168.1.67]:47091 -> [35.233.124.27]:8090 opened as 36
+Connection [192.168.1.67]:51901 -> [35.233.124.27]:8090 opened as 37
+Connection [192.168.1.67]:41619 -> [35.233.124.27]:8090 opened as 38
+Ramped up to 24 connections.
+Attempting --message-rate 400 (in range 100..inf)
+Attempting --message-rate 250 (in range 100..400)
+Attempting --message-rate 175 (in range 100..250)
+Attempting --message-rate 137.5 (in range 100..175)
+Attempting --message-rate 118.75 (in range 100..137.5)
+Attempting --message-rate 109.375 (in range 100..118.75)
+Attempting --message-rate 104.688 (in range 100..109.375)
+Attempting --message-rate 102.344 (in range 100..104.688)
+Attempting --message-rate 101.172 (in range 100..102.344)
+Attempting --message-rate 100.586 (in range 100..101.172)
+Attempting --message-rate 100.293 (in range 100..100.586)
+Attempting --message-rate 100.146 (in range 100..100.293)
+Exiting worker 0
+  0↓, 0↑ open connections (0 connecting)
+  12 connections_counter 
+  ↳ 12 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  15578298 worker_data_sent
+  93807938 worker_data_rcvd
+  231121 worker_num_writes
+  35787 worker_num_reads
+  Marker latency:
+    99.1 latency_95_ms
+    103.7 latency_99_ms
+    105.5 latency_99_5_ms
+    76.4 latency_mean_ms
+    115.9 latency_max_ms
+#[Mean    =       76.388, StdDeviation   =       14.747]
+#[Max     =      115.900, Total count    =        12261]
+#[Buckets =           10, SubBuckets     =         2048]
+Last received bytes (401): [\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000012944bb118f8977b9418b48d26a7ccf5c1","timestamp":"2018-08-30T14:16:10","witness":"1.5.3","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f55a8dccc928ec864c9a44d56f1d27486d8b927e300771dd4d5f336275151270f0ac298a377b240f2449d85224592270856190ff31fab5689057c4b6a5b3916b3","transactions":[]}}]
+Exiting worker 1
+  0↓, 0↑ open connections (0 connecting)
+  12 connections_counter 
+  ↳ 12 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  15599110 worker_data_sent
+  93818409 worker_data_rcvd
+  233223 worker_num_writes
+  36213 worker_num_reads
+  Marker latency:
+    98.6 latency_95_ms
+    102.7 latency_99_ms
+    104.6 latency_99_5_ms
+    76.1 latency_mean_ms
+    111.7 latency_max_ms
+#[Mean    =       76.087, StdDeviation   =       14.637]
+#[Max     =      111.700, Total count    =        12262]
+#[Buckets =           10, SubBuckets     =         2048]
+Last received bytes (2005): ...["2018-08-30T14:16:25","witness":"1.5.6","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"206b0d30781359ea849aa6fc19daf4356d7c131059cf00ee19158b448009eb52352500dbcdf45ce41dda5cab18ce71e5785a544a8f9521854642cdc2ce4ce3f265","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000015ddb1b1e9e41d9d286f9f29572a9e90a7","timestamp":"2018-08-30T14:16:25","witness":"1.5.6","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"206b0d30781359ea849aa6fc19daf4356d7c131059cf00ee19158b448009eb52352500dbcdf45ce41dda5cab18ce71e5785a544a8f9521854642cdc2ce4ce3f265","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000015ddb1b1e9e41d9d286f9f29572a9e90a7","timestamp":"2018-08-30T14:16:25","witness":"1.5.6","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"206b0d30781359ea849aa6fc19daf4356d7c131059cf00ee19158b448009eb52352500dbcdf45ce41dda5cab18ce71e5785a544a8f9521854642cdc2ce4ce3f265","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000015ddb1b1e9e41d9d286f9f29572a9e90a7","timestamp":"2018-08-30T14:16:25","witness":"1.5.6","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"206b0d30781359ea849aa6fc19daf4356d7c131059cf00ee19158b448009eb52352500dbcdf45ce41dda5cab18ce71e5785a544a8f9521854642cdc2ce4ce3f265","transactions":[]}}]
+Total data sent:     29.7 MiB (31160280 bytes)
+Total data received: 178.9 MiB (187587063 bytes)
+Bandwidth per channel: 0.547⇅ Mbps (68.3 kBps)
+Aggregate bandwidth: 11.252↓, 1.869↑ Mbps
+Packet rate estimate: 1079.2↓, 3480.7↑ (2↓, 1↑ TCP MSS/op)
+Message latency at percentiles: 98.8/103.1/105.1 ms (95/99/99.5%)
+Test duration: 133.369 s.
+Best --message-rate for latency 2000ms⁹⁵ᵖ is 100.146

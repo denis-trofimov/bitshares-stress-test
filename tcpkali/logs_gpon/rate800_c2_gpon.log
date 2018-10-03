@@ -1,0 +1,36 @@
+Destination: [104.155.104.137]:8090
+Interface enp2s0 address [192.168.1.67]:0
+Using interface enp2s0 to connect to [104.155.104.137]:8090
+Connection [192.168.1.67]:37789 -> [104.155.104.137]:8090 opened as 15
+Connection [192.168.1.67]:43147 -> [104.155.104.137]:8090 opened as 16
+Ramped up to 2 connections.
+Exiting worker 0
+  0↓, 0↑ open connections (0 connecting)
+  1 connections_counter 
+  ↳ 1 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  3265123 worker_data_sent
+  22638166 worker_data_rcvd
+  46286 worker_num_writes
+  3773 worker_num_reads
+Last received bytes (8423): ...[2018-09-27T15:25:35","witness":"1.5.10","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f25c7ff95350768c089b89cd4533d38e78cde340e5cd1d50df11a9e83da3c8f9c1cd2e6a75d706e0398be90c96b72e5a94eaf1263f994e2a6dd8e1c95c598947f","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000027c1767df6f604ced9637ebae899b4a351c","timestamp":"2018-09-27T16:14:15","witness":"1.5.1","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"2067c0af5e20b226a55741aa8e6fd7e41a47c80f371e9e3c494598429aeb13ab9e2539297cf47f8d93592a9c9d945eeedad552a5ad9af429f28dc40a98b73711cb","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000000000000000000000000000000000000000","timestamp":"2018-09-27T15:19:25","witness":"1.5.1","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f3b6a36a4c079d57e08b9267e9e2c1c7be238f0f00b4223b0ed605d77901493ee6b1da80dec54e70d7381a884ef5f58ffaee3dd65ae3d3dc7e7ba697d9e9b591b","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000028bde56c2568485a4a23c80d0337df5564f","timestamp":"2018-09-27T16:15:30","witness":"1.5.3","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"207b5926e4244013a8b3a60f96ef9ae48a62a14412c897667dd2ed35e70939ac993857731a6aba26bd49cc916dc99b6f4613529c56b04ad1c229d8879dff4ecc23","transactions":[]}}]
+Exiting worker 1
+  0↓, 0↑ open connections (0 connecting)
+  1 connections_counter 
+  ↳ 1 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  3168575 worker_data_sent
+  21930677 worker_data_rcvd
+  46337 worker_num_writes
+  3724 worker_num_reads
+Last received bytes (8063): ...["transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"200bfa32fa2e914aac6a4c48517956fd43f1943b6bbdbc86fc029cf3aa78152792518f11c6ac0405ad2020c231eb86279e7b6b8eff28bb86cb907902f9006c4e63","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000000484c1802482fec7a2dfe21cea568853427","timestamp":"2018-09-27T15:26:00","witness":"1.5.6","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"2016aa63953a0511cadd77d03544222249679a774f333ba64f5c5222937be239f70e9c02afa423f55395f2174808d50fca3aa03c066923f9b308fc57e6251f96e2","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000005a87d693c975422112c4be99869d31d7a3","timestamp":"2018-09-27T15:27:30","witness":"1.5.5","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"2035fdb88cf84fe7afbe7e9a92371fe942dd89d0ffc944e3bde4151019812fa84d1e4f9ba316ef88609167ff9077af750cea3bce1ca99715c8962b759bfd5054e4","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"0000002bcec739d22ea50a3d6257eeb36534f71b","timestamp":"2018-09-27T15:23:35","witness":"1.5.6","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f5e10da003f42afb9e6e064b428f3aff284e8cdb78f85a6529d7f321bbc01cb510dd5966dfd2f546e2d797a24492b8026ab496b455c6471d2defb63d6f520634c","transactions":[]}}\201&{"id":7,"jsonrpc":"2.0","result":null}]
+Total data sent:     6.1 MiB (6433698 bytes)
+Total data received: 42.5 MiB (44568843 bytes)
+Bandwidth per channel: 3.400⇅ Mbps (425.0 kBps)
+Aggregate bandwidth: 5.942↓, 0.858↑ Mbps
+Packet rate estimate: 624.7↓, 1543.6↑ (5↓, 1↑ TCP MSS/op)
+Test duration: 60.0033 s.
