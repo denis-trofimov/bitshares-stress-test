@@ -1,0 +1,72 @@
+Destination: [35.233.124.27]:8090
+Interface enp2s0 address [192.168.1.67]:0
+Using interface enp2s0 to connect to [35.233.124.27]:8090
+Initialized HdrHistogram with size 90216
+Initialized HdrHistogram with size 90216
+Connection [192.168.1.67]:42867 -> [35.233.124.27]:8090 opened as 15
+Connection [192.168.1.67]:42361 -> [35.233.124.27]:8090 opened as 16
+Ramped up to 2 connections.
+Attempting --message-rate 400 (in range 100..inf)
+Attempting --message-rate 1600 (in range 400..inf)
+Attempting --message-rate 6400 (in range 1600..inf)
+Attempting --message-rate 4000 (in range 1600..6400)
+Attempting --message-rate 2800 (in range 1600..4000)
+Attempting --message-rate 2200 (in range 1600..2800)
+Attempting --message-rate 1900 (in range 1600..2200)
+Attempting --message-rate 1750 (in range 1600..1900)
+Attempting --message-rate 1675 (in range 1600..1750)
+Attempting --message-rate 1637.5 (in range 1600..1675)
+Attempting --message-rate 1618.75 (in range 1600..1637.5)
+Attempting --message-rate 1609.38 (in range 1600..1618.75)
+Attempting --message-rate 1604.69 (in range 1600..1609.38)
+  102911.900     0.000000            8         1.00
+  102963.100     0.000000           16         1.00
+  103014.300     0.000000           32         1.00
+  103065.500     0.000000           48         1.00
+  103116.700     0.000000           64         1.00
+  103167.900     0.000000           80         1.00
+  103219.100     0.000000           96         1.00
+  103270.300     0.000000          104         1.00
+  103321.500     0.000000          130         1.00
+  103372.700     0.000000          162         1.00
+  103423.900     0.000000          186         1.00
+  103475.100     0.000000          210         1.00
+  103526.300     0.000000          242         1.00
+  103577.500     0.000000          264         1.00
+  103628.700     0.000000          280         1.00
+  103679.900     0.000000          296         1.00
+  103731.100     0.000000          312         1.00
+  103782.300     0.000000          328         1.00
+  103833.500     0.000000          344         1.00
+  103884.700     0.000000          360         1.00
+  103935.900     0.000000          376         1.00
+  103987.100     0.000000          392         1.00
+  104038.300     0.000000          400         1.00
+  104089.500     0.000000          416         1.00
+  104140.700     0.000000          424         1.00
+  104191.900     0.000000          448         1.00
+  104243.100     0.000000          456         1.00
+  104294.300     0.000000          480         1.00
+  104345.500     0.000000          496         1.00
+  104396.700     0.000000          512         1.00
+  104447.900     0.000000          520         1.00
+  104499.100     0.000000          536         1.00
+  104550.300     0.000000          552         1.00
+  104601.500     0.000000          568         1.00
+  104652.700     0.000000          584         1.00
+  104703.900     0.000000          600         1.00
+  104755.100     0.000000          616         1.00
+  104806.300     0.000000          624         1.00
+  104857.500     0.000000          648         1.00
+#[Mean    =   103839.447, StdDeviation   =      557.197]
+#[Max     =   104857.500, Total count    =          648]
+#[Buckets =           10, SubBuckets     =         2048]
+Last received bytes (3208): ...["2018-08-30T14:14:45","witness":"1.5.9","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f008250f1cd51687a1f886ee4aa905e7703f8c3b682c63151e0b25ddfa7acc6433879e7dfc93ac10f5244acd0dd5f8f481ba116efbd0c6de1cf304397f4911218","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000001dfe21bfa0ebdd39a4e7cfdaca15f1d95","timestamp":"2018-08-30T14:14:45","witness":"1.5.9","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f008250f1cd51687a1f886ee4aa905e7703f8c3b682c63151e0b25ddfa7acc6433879e7dfc93ac10f5244acd0dd5f8f481ba116efbd0c6de1cf304397f4911218","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000001dfe21bfa0ebdd39a4e7cfdaca15f1d95","timestamp":"2018-08-30T14:14:45","witness":"1.5.9","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f008250f1cd51687a1f886ee4aa905e7703f8c3b682c63151e0b25ddfa7acc6433879e7dfc93ac10f5244acd0dd5f8f481ba116efbd0c6de1cf304397f4911218","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000001dfe21bfa0ebdd39a4e7cfdaca15f1d95","timestamp":"2018-08-30T14:14:45","witness":"1.5.9","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f008250f1cd51687a1f886ee4aa905e7703f8c3b682c63151e0b25ddfa7acc6433879e7dfc93ac10f5244acd0dd5f8f481ba116efbd0c6de1cf304397f4911218","transactions":[]}}]
+Best --message-rate for latency 1000ms can not be determined in time due to unstable target system behavior
+Total data sent:     36.1 MiB (37839764 bytes)
+Total data received: 39.1 MiB (40970965 bytes)
+Bandwidth per channel: 2.061⇅ Mbps (257.6 kBps)
+Aggregate bandwidth: 2.143↓, 1.979↑ Mbps
+Packet rate estimate: 218.4↓, 1019.1↑ (3↓, 1↑ TCP MSS/op)
+Message latency at percentiles: 104755.1/104857.5/104857.5 ms (95/99/99.5%)
+Test duration: 152.969 s.

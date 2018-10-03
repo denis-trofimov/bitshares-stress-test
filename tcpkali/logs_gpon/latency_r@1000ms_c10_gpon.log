@@ -1,0 +1,83 @@
+Destination: [35.233.124.27]:8090
+Interface enp2s0 address [192.168.1.67]:0
+Using interface enp2s0 to connect to [35.233.124.27]:8090
+Initialized HdrHistogram with size 90216
+Initialized HdrHistogram with size 90216
+Connection [192.168.1.67]:33995 -> [35.233.124.27]:8090 opened as 15
+Connection [192.168.1.67]:37903 -> [35.233.124.27]:8090 opened as 16
+Connection [192.168.1.67]:57465 -> [35.233.124.27]:8090 opened as 17
+Connection [192.168.1.67]:41351 -> [35.233.124.27]:8090 opened as 18
+Connection [192.168.1.67]:47787 -> [35.233.124.27]:8090 opened as 19
+Connection [192.168.1.67]:47905 -> [35.233.124.27]:8090 opened as 20
+Connection [192.168.1.67]:36723 -> [35.233.124.27]:8090 opened as 21
+Connection [192.168.1.67]:38949 -> [35.233.124.27]:8090 opened as 22
+Connection [192.168.1.67]:51407 -> [35.233.124.27]:8090 opened as 23
+Connection [192.168.1.67]:57737 -> [35.233.124.27]:8090 opened as 24
+Ramped up to 10 connections.
+Attempting --message-rate 400 (in range 100..inf)
+Attempting --message-rate 1600 (in range 400..inf)
+Attempting --message-rate 1000 (in range 400..1600)
+Attempting --message-rate 700 (in range 400..1000)
+Attempting --message-rate 550 (in range 400..700)
+Attempting --message-rate 475 (in range 400..550)
+Attempting --message-rate 437.5 (in range 400..475)
+Attempting --message-rate 418.75 (in range 400..437.5)
+Attempting --message-rate 409.375 (in range 400..418.75)
+Attempting --message-rate 404.688 (in range 400..409.375)
+Attempting --message-rate 402.344 (in range 400..404.688)
+Attempting --message-rate 401.172 (in range 400..402.344)
+Attempting --message-rate 400.586 (in range 400..401.172)
+Exiting worker 1
+  0↓, 0↑ open connections (0 connecting)
+  5 connections_counter 
+  ↳ 5 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  24501067 worker_data_sent
+  22619167 worker_data_rcvd
+  183644 worker_num_writes
+  7654 worker_num_reads
+  Marker latency:
+    0.0 latency_95_ms
+    0.0 latency_99_ms
+    0.0 latency_99_5_ms
+    -nan latency_mean_ms
+    0.0 latency_max_ms
+       Value   Percentile   TotalCount 1/(1-Percentile)
+
+#[Mean    =         -nan, StdDeviation   =         -nan]
+#[Max     =        0.000, Total count    =            0]
+#[Buckets =           10, SubBuckets     =         2048]
+Last received bytes (3208): ...["2018-08-30T14:15:15","witness":"1.5.4","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"201f637da3f568aef219978f1f072be871fce4abd2de1a8c4addfd68b662da51cc09a7e6d925422171a62e04c9e050665c0a4d1f550fa0828b2b5d230a5c4a5740","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000000071f0f0d840d0a728a0aac0d4d498c2ca1","timestamp":"2018-08-30T14:15:15","witness":"1.5.4","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"201f637da3f568aef219978f1f072be871fce4abd2de1a8c4addfd68b662da51cc09a7e6d925422171a62e04c9e050665c0a4d1f550fa0828b2b5d230a5c4a5740","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000000071f0f0d840d0a728a0aac0d4d498c2ca1","timestamp":"2018-08-30T14:15:15","witness":"1.5.4","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"201f637da3f568aef219978f1f072be871fce4abd2de1a8c4addfd68b662da51cc09a7e6d925422171a62e04c9e050665c0a4d1f550fa0828b2b5d230a5c4a5740","transactions":[]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"000000071f0f0d840d0a728a0aac0d4d498c2ca1","timestamp":"2018-08-30T14:15:15","witness":"1.5.4","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"201f637da3f568aef219978f1f072be871fce4abd2de1a8c4addfd68b662da51cc09a7e6d925422171a62e04c9e050665c0a4d1f550fa0828b2b5d230a5c4a5740","transactions":[]}}]
+Exiting worker 0
+  0↓, 0↑ open connections (0 connecting)
+  5 connections_counter 
+  ↳ 5 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  24287135 worker_data_sent
+  23121686 worker_data_rcvd
+  179435 worker_num_writes
+  7924 worker_num_reads
+  Marker latency:
+    0.0 latency_95_ms
+    0.0 latency_99_ms
+    0.0 latency_99_5_ms
+    -nan latency_mean_ms
+    0.0 latency_max_ms
+       Value   Percentile   TotalCount 1/(1-Percentile)
+
+#[Mean    =         -nan, StdDeviation   =         -nan]
+#[Max     =        0.000, Total count    =            0]
+#[Buckets =           10, SubBuckets     =         2048]
+Last received bytes (3216): ...[8-08-30T14:14:50","witness":"1.5.10","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"2014eb86da7a4588f8fbec3c75dc9cb7b8501ce167219b331c6c10ec66765bb157533087a90d6ef2d23a150b8673ea94826d23a08dd3907ade3c69400193f8fb3b","transactions":[]}}\201~\001\216{"id":7,"jsonrpc":"2.0","result":{"previous":"00000002f1f05e830a392b7d072d7d1ac8bf143b","timestamp":"2018-08-30T14:14:50","witness":"1.5.10","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"2014eb86da7a4588f8fbec3c75dc9cb7b8501ce167219b331c6c10ec66765bb157533087a90d6ef2d23a150b8673ea94826d23a08dd3907ade3c69400193f8fb3b","transactions":[]}}\201~\001\216{"id":7,"jsonrpc":"2.0","result":{"previous":"00000002f1f05e830a392b7d072d7d1ac8bf143b","timestamp":"2018-08-30T14:14:50","witness":"1.5.10","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"2014eb86da7a4588f8fbec3c75dc9cb7b8501ce167219b331c6c10ec66765bb157533087a90d6ef2d23a150b8673ea94826d23a08dd3907ade3c69400193f8fb3b","transactions":[]}}\201~\001\216{"id":7,"jsonrpc":"2.0","result":{"previous":"00000002f1f05e830a392b7d072d7d1ac8bf143b","timestamp":"2018-08-30T14:14:50","witness":"1.5.10","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"2014eb86da7a4588f8fbec3c75dc9cb7b8501ce167219b331c6c10ec66765bb157533087a90d6ef2d23a150b8673ea94826d23a08dd3907ade3c69400193f8fb3b","transactions":[]}}]
+Total data sent:     46.5 MiB (48787725 bytes)
+Total data received: 43.6 MiB (45740853 bytes)
+Bandwidth per channel: 0.528⇅ Mbps (66.0 kBps)
+Aggregate bandwidth: 2.553↓, 2.723↑ Mbps
+Packet rate estimate: 326.1↓, 2533.4↑ (3↓, 1↑ TCP MSS/op)
+Message latency at percentiles: 0.0/0.0/0.0 ms (95/99/99.5%)
+Test duration: 143.317 s.
+Best --message-rate for latency 1000ms⁹⁵ᵖ is 400.586

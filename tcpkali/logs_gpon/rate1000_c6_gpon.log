@@ -1,0 +1,36 @@
+Destination: [104.155.104.137]:8090
+Interface enp2s0 address [192.168.1.67]:0
+Using interface enp2s0 to connect to [104.155.104.137]:8090
+Connection [192.168.1.67]:41999 -> [104.155.104.137]:8090 opened as 15
+Connection [192.168.1.67]:58135 -> [104.155.104.137]:8090 opened as 16
+Ramped up to 2 connections.
+Exiting worker 0
+  0↓, 0↑ open connections (0 connecting)
+  1 connections_counter 
+  ↳ 1 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  1632590 worker_data_sent
+  11281982 worker_data_rcvd
+  23851 worker_num_writes
+  2541 worker_num_reads
+Last received bytes (8607): ...[e",1]],"address_auths":[]},"options":{"memo_key":"RAY57ZpEeRUzAfxGEmHopcoyDqrswhHoKy8Ly7mKynMjrm63YeKZM","voting_account":"1.2.5","num_witness":0,"num_committee":0,"votes":[],"extensions":[]},"extensions":{}}]],"extensions":[],"signatures":["1f38612fc79dbda3535cd083305242d392ac4df28c17ef0f69024e56d507861c444c546f30d6386f80a8b6b3974f7ecbd1c79cdd483d91f944283e4fb1044284e7"],"operation_results":[[1,"1.2.29"]]},{"ref_block_num":4,"ref_block_prefix":3907834626,"expiration":"2018-09-27T15:20:25","operations":[[0,{"fee":{"amount":2105468,"asset_id":"1.3.0"},"from":"1.2.27","to":"1.2.29","amount":{"amount":"200000000000000","asset_id":"1.3.0"},"memo":{"from":"RAY6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV","to":"RAY57ZpEeRUzAfxGEmHopcoyDqrswhHoKy8Ly7mKynMjrm63YeKZM","nonce":"1586805130438816850","message":"e512b78f6ad9b16318bb0c0288a9d9956a133ab66703482eb242fe7dd02712ca"},"extensions":[]}]],"extensions":[],"signatures":["20440286905da96e15c42f2e88bc4d936aea4dbe1fc4198c3d81cb1b1c31adcbe03995fe80b715b89787c250177d85863bdd6015816e8101e3ad7a20791b7a2fa4"],"operation_results":[[0,{}]]}]}}\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000005c996a8648c985b6b457171bf6286b571","timestamp":"2018-09-27T15:20:25","witness":"1.5.7","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f7088db9bb6cda62aef429212b9e55736c1dcb379166e1b52ce3ba40f75f2eb072dcca8e9502af4746619fed73e2eb928a1059ab972a049b20d469dc89f1c1bc1","transactions":[]}}]
+Exiting worker 1
+  0↓, 0↑ open connections (0 connecting)
+  1 connections_counter 
+  ↳ 1 connections_initiated
+  ↳ 0 connections_accepted
+  0 connection_failures
+  ↳ 0 connection_timeouts
+  1608360 worker_data_sent
+  10998604 worker_data_rcvd
+  23840 worker_num_writes
+  2013 worker_num_reads
+Last received bytes (401): [\201~\001\215{"id":7,"jsonrpc":"2.0","result":{"previous":"00000003aa0a750a876b8899d4314a1561f557c3","timestamp":"2018-09-27T15:19:55","witness":"1.5.4","transaction_merkle_root":"0000000000000000000000000000000000000000","extensions":[],"witness_signature":"1f0f29e6054910b9b16bd2c0d7f559a0a39fa053b9224aea53ba99451b71b6398c603fd1c973049b1046feaaed8963ee4849d3f8fed13ef85892083de3894344ac","transactions":[]}}]
+Total data sent:     3.1 MiB (3240950 bytes)
+Total data received: 21.2 MiB (22280586 bytes)
+Bandwidth per channel: 1.701⇅ Mbps (212.7 kBps)
+Aggregate bandwidth: 2.970↓, 0.432↑ Mbps
+Packet rate estimate: 303.6↓, 794.8↑ (4↓, 1↑ TCP MSS/op)
+Test duration: 60.0054 s.
