@@ -31,7 +31,7 @@ class SocketClient(object):
         assert json_data['session_id'] == self.session_id
 
     def send_with_response(self, payload):
-        print 'sending data', payload
+        print(f'sending data{payload}')
         json_data = json.dumps(payload)
 
         g = gevent.spawn(self.ws.send, json_data)
@@ -39,7 +39,7 @@ class SocketClient(object):
         g = gevent.spawn(self.ws.recv)
         result = g.get(block=True, timeout=10)
 
-        print 'received data', result
+        print(f'received data {result}')
         json_data = json.loads(result)
         return json_data
 
