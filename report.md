@@ -1,12 +1,13 @@
 # Report on tcpkali test usage.
 
 ## Installation
-Please follow [Install](https://github.com/satori-com/tcpkali#install) guide of `tcpkali Fast multi-core TCP and WebSockets load generator` project page.
+Please follow the [Install](https://github.com/satori-com/tcpkali#install) guide of the `tcpkali Fast multi-core TCP and WebSockets load generator` project page.
 
 ## Running tests
 
-###LATENCY MEASUREMENT
+### Latency measurement
 Please take a look into [latency_limited_message_rate.sh](tcpkali/latency_limited_message_rate.sh)
+
 Example:
 ```sh
 tcpkali -vvv --ws -c100 -r @1000ms --connect-rate 10 \
@@ -18,6 +19,7 @@ newton.array.io:8090  2>&1 | tee latency_r@1000ms_c100.log
 
 ### Receive and send OPS measurement
 Please take a look into [rate_test_message.sh](tcpkali/rate_test_message.sh)
+
 Example:
 ```sh
 tcpkali -T 60 -vvv -c6 -r1000 --ws \
