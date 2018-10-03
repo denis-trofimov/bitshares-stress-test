@@ -1,0 +1,6 @@
+"Method","Name","# requests","# failures","Median response time","Average response time","Min response time","Max response time","Average Content Size","Requests/s"
+"WebSocket Recv","test/ws/chat",58011,0,9100,14988,568,56403,109,485.45
+"WebSocket Sent","test/ws/chat",11622,0,240,293,106,3843,109,97.25
+"WebSocket Recv","test/ws/echo",11635,0,1200,1703,548,49333,109,97.36
+"WebSocket Sent","test/ws/echo",11636,0,240,281,112,4588,109,97.37
+"None","Total",92904,0,1900,9644,106,56403,109,777.44
